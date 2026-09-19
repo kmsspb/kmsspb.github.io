@@ -1,1 +1,248 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="BoomArena architecture case study — an AI-directed real-time multiplayer browser game."><title>BoomArena | Maksim Kozliakov</title><link rel="stylesheet" href="../assets/style.css"></head><body><div class="wrap"><nav><a href="../"><strong>← Maksim Kozliakov</strong></a><div class="links"><a href="../#projects">Projects</a><a href="https://www.linkedin.com/in/maksim-kozliakov/">LinkedIn ↗</a></div></nav><main class="article"><div class="eyebrow">Project 02 · AI-directed software delivery</div><h1>BoomArena</h1><p class="lead">From a local bomb-battle prototype to a real-time multiplayer product.</p><a class="button primary" href="https://boom-arena.kms-spb.workers.dev/">Play live demo ↗</a><h2>The question</h2><p>Could product judgment and architectural direction become working software without manually writing the code? I explored that question through a browser game for two to five friends.</p><h2>My role and AI credit</h2><p>I conceived and directed BoomArena, including its product vision, scope, architecture decisions, requirements, acceptance criteria, validation and releases. ChatGPT/Codex generated and modified the implementation code under my direction; I did not manually author the codebase.</p><h2>How it evolved</h2><p>The project began with deterministic two-player local gameplay. I expanded the match loop before tackling online distribution. The major transition was extracting a renderer-independent shared simulation and introducing private WebSocket rooms with a server-authoritative Cloudflare Durable Object for each room. Later milestones refined mobile controls, reconnection and state synchronization, then added sudden death and team modes.</p><h2>Architecture at a glance</h2><div class="callout"><strong>Browser:</strong> Phaser rendering and keyboard/touch inputs<br><strong>Transport:</strong> WebSockets through Cloudflare Worker routing<br><strong>Coordination:</strong> One GameRoom Durable Object per private room<br><strong>Rules:</strong> Phaser-free shared TypeScript simulation, authoritative at 20 Hz<br><strong>Updates:</strong> Versioned protocol v4 with baseline and compact snapshots at 10 Hz<br><strong>Client:</strong> Interpolation, prediction and reconciliation</div><h2>Decision: keep the server authoritative</h2><p>Players must agree on movement, bombs, damage, scoring and results. Server authority creates a single source of truth, at the cost of more complicated client responsiveness and reconciliation.</p><h2>Decision: share the simulation</h2><p>Local and online modes use the same core gameplay rules rather than maintaining two implementations. That improves consistency and testability while requiring gameplay logic to remain serializable and independent of Phaser.</p><h2>Decision: protect the MVP</h2><p>Invite-only guest rooms support the intended social experience without accounts or public matchmaking. Fixed reactions provide social presence without free-text chat. These boundaries kept the first complete product focused.</p><h2>Validation and outcome</h2><p>The repository review dated September 19, 2026 reported 13 milestone commits and 136 passing tests (124 core, 12 Worker integration), along with successful TypeScript type checking and ESLint. These are build-quality observations, not user-scale or commercial-impact claims. Recheck before publishing updated figures.</p><h2>What I learned</h2><p>AI-generated implementation still needs human judgment about scope, architecture and acceptance. A technically functioning feature also needs real usability validation; mobile controls and networking required targeted refinement after their initial releases.</p><a class="button primary" href="https://boom-arena.kms-spb.workers.dev/">Try BoomArena ↗</a><p><em>Repository link will be added once public access is confirmed.</em></p><p><a href="../">← Back to all projects</a></p></main><footer>© 2026 Maksim Kozliakov</footer></div></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore the server-authoritative multiplayer architecture, Durable Object room model, WebSocket protocol, tradeoffs, and validation behind BoomArena.">
+  <meta name="theme-color" content="#f5f7fa">
+  <link rel="canonical" href="https://kmsspb.github.io/projects/boomarena.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Maksim Kozliakov">
+  <meta property="og:title" content="BoomArena Architecture Case Study | Maksim Kozliakov">
+  <meta property="og:description" content="How a local browser game evolved into a real-time multiplayer application with shared simulation, server authority, and private rooms.">
+  <meta property="og:url" content="https://kmsspb.github.io/projects/boomarena.html">
+  <meta name="twitter:card" content="summary">
+  <title>BoomArena Architecture Case Study | Maksim Kozliakov</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <header class="site-header">
+    <nav class="site-nav wrap" aria-label="Primary navigation">
+      <a class="brand" href="../">Maksim Kozliakov</a>
+      <ul class="nav-links">
+        <li><a href="../">Home</a></li>
+        <li><a href="../#projects">Projects</a></li>
+        <li><a href="wordy.html">Wordy</a></li>
+        <li><a class="external" href="https://www.linkedin.com/in/maksim-kozliakov/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        <li><a class="external" href="https://github.com/kmsspb" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="content">
+    <header class="case-hero wrap">
+      <p class="eyebrow">Project 02 · Real-time multiplayer architecture</p>
+      <h1>BoomArena</h1>
+      <p class="lead">Real-time multiplayer architecture through AI-directed development.</p>
+      <ul class="tags" aria-label="BoomArena technologies">
+        <li>TypeScript</li><li>Phaser</li><li>Cloudflare Workers</li><li>Durable Objects</li><li>WebSockets</li>
+      </ul>
+      <div class="project-meta" aria-label="Project summary">
+        <div class="meta-item"><span>Context</span><strong>Independent multiplayer experiment</strong></div>
+        <div class="meta-item"><span>My role</span><strong>Product vision and architectural direction</strong></div>
+        <div class="meta-item"><span>Delivery</span><strong>AI-assisted implementation</strong></div>
+      </div>
+      <div class="page-actions">
+        <a class="button primary external" href="https://boom-arena.kms-spb.workers.dev/" target="_blank" rel="noopener noreferrer">Open Live Demo</a>
+        <a class="button" href="../#projects">Back to Projects</a>
+      </div>
+    </header>
+
+    <div class="case-layout wrap">
+      <aside class="case-toc" aria-label="Case study sections">
+        <p>On this page</p>
+        <ol>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#problem">Problem</a></li>
+          <li><a href="#role">My role</a></li>
+          <li><a href="#scope">Vision &amp; scope</a></li>
+          <li><a href="#architecture">Architecture</a></li>
+          <li><a href="#decisions">Decisions</a></li>
+          <li><a href="#iterations">Iterations</a></li>
+          <li><a href="#validation">Validation</a></li>
+          <li><a href="#outcome">Outcome</a></li>
+          <li><a href="#lessons">Lessons</a></li>
+          <li><a href="#next">Next</a></li>
+        </ol>
+      </aside>
+
+      <article class="case-content">
+        <section id="overview" aria-labelledby="overview-title">
+          <span class="section-number">01 · Project overview</span>
+          <h2 id="overview-title">From local gameplay to private online rooms</h2>
+          <p>BoomArena is an independent experiment in directing AI-assisted product delivery through architectural decisions, clear requirements, iterative development, and validation.</p>
+          <p>The project evolved from a deterministic two-player local browser game into a real-time multiplayer application supporting private online rooms for two to five friends.</p>
+          <div class="disclosure">
+            <h3>AI implementation disclosure</h3>
+            <p>I owned the product vision, architectural direction, requirements, validation, and release decisions. AI coding agents generated and modified the implementation under my direction.</p>
+          </div>
+        </section>
+
+        <section id="problem" aria-labelledby="problem-title">
+          <span class="section-number">02 · The problem / motivation</span>
+          <h2 id="problem-title">Can product and architecture direction become a working real-time system?</h2>
+          <p>The starting question was whether product judgment and architectural direction could become working software without manually writing the implementation. A browser game for a small group of friends created a useful test: it needed clear rules, responsive interaction, synchronized state, and deliberately constrained scope.</p>
+          <p>The difficult transition was not simply putting the local game online. Every player needed to agree on movement, bombs, damage, scoring, and match results while the experience still felt responsive across desktop and mobile browsers.</p>
+        </section>
+
+        <section id="role" aria-labelledby="role-title">
+          <span class="section-number">03 · My role</span>
+          <h2 id="role-title">Directing scope, architecture, milestones, and validation</h2>
+          <p>I conceived and directed BoomArena, including its product vision, scope, architectural decisions, requirements, acceptance criteria, validation, and releases.</p>
+          <p>My focus was on framing the next useful increment, evaluating tradeoffs, reviewing behavior, and deciding when a result was ready to move forward. The implementation was generated and modified by AI coding agents under that direction.</p>
+        </section>
+
+        <section id="scope" aria-labelledby="scope-title">
+          <span class="section-number">04 · Product vision and scope</span>
+          <h2 id="scope-title">A focused social game, not a public gaming platform</h2>
+          <p>The project protected a narrow use case: quick matches among invited friends. Later milestones expanded the play experience without introducing public-platform infrastructure.</p>
+          <div class="scope-grid">
+            <div class="scope-item"><h3>Private multiplayer</h3><p>Invite-only rooms support online games for two to five friends.</p></div>
+            <div class="scope-item"><h3>Shared game rules</h3><p>Local and online modes use the same renderer-independent simulation.</p></div>
+            <div class="scope-item"><h3>Desktop and mobile</h3><p>Keyboard and touch inputs feed the same game model, with mobile controls refined through iteration.</p></div>
+            <div class="scope-item"><h3>Bounded social features</h3><p>Guest rooms and fixed reactions provide presence without accounts, matchmaking, or free-text chat.</p></div>
+          </div>
+        </section>
+
+        <section id="architecture" aria-labelledby="architecture-title">
+          <span class="section-number">05 · Architecture</span>
+          <h2 id="architecture-title">A shared simulation with server authority</h2>
+          <p>The browser handles Phaser rendering and keyboard or touch input. WebSockets connect through a Cloudflare Worker to one GameRoom Durable Object per private room. The Durable Object runs the Phaser-free shared TypeScript simulation as the authoritative source of game state.</p>
+          <figure class="architecture-diagram" role="img" aria-label="BoomArena architecture: desktop and mobile browsers use Phaser rendering and input, communicate over WebSockets through a Cloudflare Worker, and connect to a GameRoom Durable Object that runs the authoritative shared simulation. The server simulation runs at 20 hertz and sends versioned baseline or compact snapshots at 10 hertz.">
+            <div class="diagram-flow" aria-hidden="true">
+              <div class="diagram-node">Desktop / Mobile Browser</div>
+              <div class="diagram-connector">→</div>
+              <div class="diagram-node emphasis">Phaser Renderer + Input</div>
+              <div class="diagram-connector labeled"><small>WebSocket</small>↔</div>
+              <div class="diagram-node">Cloudflare Worker</div>
+              <div class="diagram-connector">→</div>
+              <div class="diagram-node">GameRoom Durable Object</div>
+              <div class="diagram-connector">→</div>
+              <div class="diagram-node emphasis">Authoritative Shared Simulation</div>
+            </div>
+            <div class="diagram-notes" aria-hidden="true">
+              <p><strong>20 Hz simulation</strong><br>authoritative game-rule updates</p>
+              <p><strong>10 Hz snapshots</strong><br>versioned baseline and compact state updates</p>
+            </div>
+            <figcaption>Room-level coordination and the separate simulation and snapshot frequencies.</figcaption>
+          </figure>
+        </section>
+
+        <section id="decisions" aria-labelledby="decisions-title">
+          <span class="section-number">06 · Key architectural decisions</span>
+          <h2 id="decisions-title">Architecture that evolved with the game</h2>
+          <p>The online design followed a working local match loop. Simulation extraction, server authority, synchronization, and reconnect behavior were introduced and refined through later milestones.</p>
+          <div class="decision-list">
+            <article class="decision-card">
+              <header class="decision-header"><span class="decision-index">DECISION 01</span><h3>Shared deterministic simulation independent of Phaser</h3></header>
+              <div class="decision-body">
+                <div class="decision-field"><h4>Problem</h4><p>Local and online play needed consistent rules without maintaining separate gameplay implementations.</p></div>
+                <div class="decision-field"><h4>Decision</h4><p>Extract a shared, Phaser-free TypeScript simulation for the core game rules.</p></div>
+                <div class="decision-field"><h4>Rationale</h4><p>Both modes can use the same deterministic behavior, improving consistency and testability.</p></div>
+                <div class="decision-field"><h4>Tradeoff</h4><p>Gameplay state must remain serializable and independent of renderer-specific objects.</p></div>
+                <div class="decision-field"><h4>Learning</h4><p>Separating rules from presentation creates a stronger foundation for both alternate clients and authoritative execution.</p></div>
+              </div>
+            </article>
+
+            <article class="decision-card">
+              <header class="decision-header"><span class="decision-index">DECISION 02</span><h3>Server-authoritative multiplayer</h3></header>
+              <div class="decision-body">
+                <div class="decision-field"><h4>Problem</h4><p>Players needed one agreed state for movement, bombs, damage, scoring, and results.</p></div>
+                <div class="decision-field"><h4>Decision</h4><p>Make the server-side room simulation the source of truth instead of trusting client state.</p></div>
+                <div class="decision-field"><h4>Rationale</h4><p>Server authority gives every connected client a consistent basis for match outcomes.</p></div>
+                <div class="decision-field"><h4>Tradeoff</h4><p>Client responsiveness becomes more complex, requiring interpolation, prediction, and reconciliation.</p></div>
+                <div class="decision-field"><h4>Learning</h4><p>Consistency and responsiveness are connected design problems; authority alone does not create a good player experience.</p></div>
+              </div>
+            </article>
+
+            <article class="decision-card">
+              <header class="decision-header"><span class="decision-index">DECISION 03</span><h3>One Durable Object per private room</h3></header>
+              <div class="decision-body">
+                <div class="decision-field"><h4>Problem</h4><p>Each private match needed an isolated coordinator for connections and authoritative state.</p></div>
+                <div class="decision-field"><h4>Decision</h4><p>Map every private game room to its own Cloudflare GameRoom Durable Object.</p></div>
+                <div class="decision-field"><h4>Rationale</h4><p>The room is the natural boundary for connected players, match state, and real-time coordination.</p></div>
+                <div class="decision-field"><h4>Tradeoff</h4><p>The design introduces explicit Worker routing and room lifecycle responsibilities.</p></div>
+                <div class="decision-field"><h4>Learning</h4><p>A stateful infrastructure primitive is most useful when its ownership boundary closely matches the product concept.</p></div>
+              </div>
+            </article>
+
+            <article class="decision-card">
+              <header class="decision-header"><span class="decision-index">DECISION 04</span><h3>Versioned WebSocket protocol with baselines and compact snapshots</h3></header>
+              <div class="decision-body">
+                <div class="decision-field"><h4>Problem</h4><p>Clients needed initial and reconnect state as well as efficient recurring updates while the protocol evolved.</p></div>
+                <div class="decision-field"><h4>Decision</h4><p>Use a versioned protocol—currently described as v4—with baseline state and compact snapshots sent at 10 Hz.</p></div>
+                <div class="decision-field"><h4>Rationale</h4><p>Baselines establish full state; compact snapshots reduce the recurring update shape between 20 Hz simulation ticks.</p></div>
+                <div class="decision-field"><h4>Tradeoff</h4><p>Protocol versions and snapshot formats add coordination and compatibility complexity.</p></div>
+                <div class="decision-field"><h4>Learning</h4><p>A real-time protocol benefits from explicit evolution and distinct paths for initial state and frequent updates.</p></div>
+              </div>
+            </article>
+
+            <article class="decision-card">
+              <header class="decision-header"><span class="decision-index">DECISION 05</span><h3>Invite-only guest rooms</h3></header>
+              <div class="decision-body">
+                <div class="decision-field"><h4>Problem</h4><p>The intended experience was playing with friends, not operating a public player network.</p></div>
+                <div class="decision-field"><h4>Decision</h4><p>Use invite-only guest rooms rather than public matchmaking and account infrastructure.</p></div>
+                <div class="decision-field"><h4>Rationale</h4><p>The boundary supports the core social experience while protecting the MVP from unrelated platform scope.</p></div>
+                <div class="decision-field"><h4>Tradeoff</h4><p>There is no persistent account identity, player discovery, or public matchmaking.</p></div>
+                <div class="decision-field"><h4>Learning</h4><p>Excluding infrastructure can be an architectural decision when it keeps the product aligned with its actual use case.</p></div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="iterations" aria-labelledby="iterations-title">
+          <span class="section-number">07 · Challenges and iterations</span>
+          <h2 id="iterations-title">The multiplayer system followed a proven local loop</h2>
+          <p>The project began with deterministic two-player local gameplay. I expanded the match loop before tackling online distribution, then extracted the renderer-independent simulation and introduced private WebSocket rooms with server authority.</p>
+          <p>Later milestones refined mobile controls, reconnection, and state synchronization before adding sudden death and team modes. The sequence matters: the final architecture was reached through iteration, not specified in full at the beginning.</p>
+        </section>
+
+        <section id="validation" aria-labelledby="validation-title">
+          <span class="section-number">08 · Validation</span>
+          <h2 id="validation-title">Automated checks and targeted product refinement</h2>
+          <p>The existing repository review dated September 19, 2026 reports 13 milestone commits and 136 passing tests: 124 core tests and 12 Worker integration tests. It also reports successful TypeScript type checking and ESLint.</p>
+          <p>Usability and networking were also refined after initial implementation, particularly mobile controls, reconnect behavior, and synchronization.</p>
+          <p class="note">These are build-quality observations, not user-scale or commercial-impact claims. The figures should be rechecked against the BoomArena repository before future publication updates.</p>
+        </section>
+
+        <section id="outcome" aria-labelledby="outcome-title">
+          <span class="section-number">09 · Outcome</span>
+          <h2 id="outcome-title">A working multiplayer application with a public demo</h2>
+          <div class="outcome-grid">
+            <div class="outcome-item"><h3>Product outcome</h3><p>A browser-based game that supports local play and private online rooms for up to five friends.</p></div>
+            <div class="outcome-item"><h3>Architecture outcome</h3><p>A server-authoritative real-time design with shared game rules, isolated room coordination, and versioned synchronization.</p></div>
+          </div>
+          <div class="page-actions"><a class="button primary external" href="https://boom-arena.kms-spb.workers.dev/" target="_blank" rel="noopener noreferrer">Try BoomArena</a></div>
+        </section>
+
+        <section id="lessons" aria-labelledby="lessons-title">
+          <span class="section-number">10 · Lessons learned</span>
+          <h2 id="lessons-title">Technical completion and product quality are different thresholds</h2>
+          <p>AI-generated implementation still needs human judgment about scope, architecture, and acceptance. A technically functioning feature also needs real usability validation; mobile controls and networking required targeted refinement after their initial releases.</p>
+          <p>The project also reinforced the value of sequencing architectural risk. Establishing the match loop first made it possible to focus later work on distribution, authority, and synchronization without simultaneously redefining the game.</p>
+        </section>
+
+        <section id="next" aria-labelledby="next-title">
+          <span class="section-number">11 · What I would explore next</span>
+          <h2 id="next-title">Deepen resilience without losing the focused scope</h2>
+          <p>The next useful exploration would be broader real-device and network-condition validation, with additional attention to reconnection edge cases, protocol compatibility, and the boundary between prediction and reconciliation.</p>
+          <p>That work would strengthen the existing private-room experience. Public matchmaking and account infrastructure would remain separate product decisions rather than automatic next steps.</p>
+          <div class="case-next">
+            <h3>See the first project</h3>
+            <p>Wordy shows where this AI-directed product and architecture practice began: a private family learning need, an evolving data model, and managed web deployment.</p>
+            <a class="button" href="wordy.html">Explore Wordy</a>
+          </div>
+        </section>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner wrap">
+      <p>© 2026 Maksim Kozliakov · BoomArena architecture case study</p>
+      <div class="footer-links"><a href="../">Home</a><a href="../#projects">All projects</a></div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -25,12 +25,11 @@ The workflow publishes only `site/` as Pages artifacts, **but the entire reposit
 
 ## Site content
 - `site/index.html`: homepage
-- `site/projects/wordy.html`: Wordy case study grounded in the supplied Codex dossier
-- `site/projects/boomarena.html`: BoomArena case study grounded in the supplied reviewed project brief
+- `site/projects/wordy.html`: Wordy case study grounded in reviewed, publication-safe project facts
+- `site/projects/boomarena.html`: BoomArena case study grounded in reviewed, publication-safe project facts
 - `site/assets/style.css`: responsive design
 - `.github/workflows/pages.yml`: publish `site/` on pushes to `main`
 
 Wordy is a private family application. Do not publish a direct app URL, account access, learner names, real word decks, session cookies, security configurations or private repo links unless you have deliberately reviewed what that reveals. A sanitized screenshot can demonstrate the product instead.
 
 Before every push: `git status`, `git diff --cached --name-only`, and review the staged files. Never commit secrets even to the private notes repo. If sensitive information was already pushed, deleting it in a later commit is not enough; consult GitHub's sensitive-data-removal guidance.
-

@@ -1,15 +1,230 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Wordy: an AI-directed family vocabulary learning product and architecture case study by Maksim Kozliakov."><title>Wordy | Maksim Kozliakov</title><link rel="stylesheet" href="../assets/style.css"></head>
-<body><a class="skip" href="#content">Skip to content</a><div class="wrap"><nav><a href="../"><strong>← Maksim Kozliakov</strong></a><div class="links"><a href="../#projects">Projects</a><a href="https://www.linkedin.com/in/maksim-kozliakov/">LinkedIn ↗</a></div></nav>
-<main class="article" id="content"><div class="eyebrow">Project 01 · AI-directed product architecture · February–March 2026</div><h1>Wordy</h1><p class="lead">A family learning need became a deployed, phone-friendly vocabulary application—and my first experiment directing AI-generated software.</p>
-<div class="callout"><strong>Product:</strong> Private family learning application · <strong>My role:</strong> AI Product &amp; Solutions Architect · <strong>Delivery:</strong> AI-generated implementation under my direction</div>
-<h2>The family problem</h2><p>Learning new languages with my kids often started with writing unfamiliar words on paper. I wanted an additional way to collect those words and practice them from a phone or browser. The family needed to share vocabulary decks while keeping each learner's progress separate. I was also curious whether I could direct an AI coding assistant to turn that informal need into a real, deployed product.</p>
-<h2>My contribution and AI credit</h2><p>I framed the problem, defined requirements and delivery milestones, directed architectural choices, reviewed generated behavior, tested important journeys and prioritized corrections. AI coding agents generated the source implementation; I did not manually author the application code. My responsibility was the product and solution direction, including deployment, data design, experience and proportionate security decisions.</p>
-<h2>What the product does</h2><p>Wordy lets family members share vocabulary decks with independent learning progress. Learners can use flashcards, multiple-choice questions and typing practice. Deck creation supports manual card entry and tab-separated bulk import. A simplified level-based spaced-repetition model schedules reviews; progress summaries, streaks and achievements provide feedback. It is an application used within my family, not a public commercial learning platform.</p>
-<h2>Architecture at a glance</h2><div class="callout"><strong>Interface and API:</strong> Next.js 16, React 19, TypeScript, App Router<br><strong>Data access:</strong> Prisma ORM<br><strong>Database:</strong> PostgreSQL on Neon<br><strong>Hosting:</strong> Vercel<br><strong>Design:</strong> One full-stack application with shared decks and learner-specific review data</div>
-<h2>Decision: separate shared content from personal progress</h2><p>The family should not maintain duplicate copies of the same words, but each person needs their own learning history. I directed the model toward shared decks and cards with review data associated with an individual learner and card. Introducing profiles required a cross-cutting migration across the database, API and interface; existing progress was preserved under a starter profile.</p>
-<h2>Decision: distinguish where a learner is from how they got there</h2><p>The data model separates <strong>ReviewState</strong>, which represents the current level and next review for one learner and card, from append-only <strong>ReviewEvent</strong> history, which records learning activity over time. This distinction supports efficient study sessions and historical questions such as streaks, achievements and progress by learning mode. The accepted tradeoff is that the two representations must be kept consistent.</p>
-<h2>Decision: evolve the deployment with the product</h2><p>Early validation used local SQLite. When the application moved to the web, the architecture evolved to Vercel with managed PostgreSQL on Neon and Prisma migrations. A briefly explored Docker route was discarded. This was a practical example of changing infrastructure when the product's operating context changed, rather than defending the prototype's initial choices.</p>
-<h2>Usability, security and iteration</h2><p>Iteration went beyond adding functionality: mobile swipe behavior was refined, profile selection was fixed to survive refresh and locking, and progress summaries were simplified after an overly comparison-heavy version. Because the family tool became internet-accessible, access control and input-handling protections were also strengthened. The lightweight family-access model matches a private household use case; it is not a substitute for individually authenticated accounts in a public multi-tenant product.</p>
-<h2>Evidence and limits</h2><p>The Codex repository review reports 26 commits from February 5 to March 17, 2026, and ten passing focused regression tests: six for profile selection/persistence and four for access and configuration behavior. This is targeted verification, not comprehensive automated coverage. A public live demo is intentionally not linked because Wordy contains private family learning information.</p>
-<h2>What I took into my next project</h2><p>Wordy taught me to translate a personal need into explicit product boundaries, evolve a data model without abandoning existing usage and treat AI-generated output as something to inspect and refine. With BoomArena, I took that AI-directed delivery approach into a different problem: real-time multiplayer synchronization and server-authoritative state.</p><a class="button" href="boomarena.html">Next project: BoomArena →</a><p><a href="../">← Back to all projects</a></p></main><footer>© 2026 Maksim Kozliakov</footer></div></body></html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore the product evolution, data model, architecture decisions, tradeoffs, and validation behind Wordy, a private family learning application directed by Maksim Kozliakov.">
+  <meta name="theme-color" content="#f5f7fa">
+  <link rel="canonical" href="https://kmsspb.github.io/projects/wordy.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Maksim Kozliakov">
+  <meta property="og:title" content="Wordy Architecture Case Study | Maksim Kozliakov">
+  <meta property="og:description" content="From a family learning need to a working digital product: shared vocabulary, individual progress, and an evolving deployment architecture.">
+  <meta property="og:url" content="https://kmsspb.github.io/projects/wordy.html">
+  <meta name="twitter:card" content="summary">
+  <title>Wordy Architecture Case Study | Maksim Kozliakov</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <header class="site-header">
+    <nav class="site-nav wrap" aria-label="Primary navigation">
+      <a class="brand" href="../">Maksim Kozliakov</a>
+      <ul class="nav-links">
+        <li><a href="../">Home</a></li>
+        <li><a href="../#projects">Projects</a></li>
+        <li><a href="boomarena.html">BoomArena</a></li>
+        <li><a class="external" href="https://www.linkedin.com/in/maksim-kozliakov/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        <li><a class="external" href="https://github.com/kmsspb" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="content">
+    <header class="case-hero wrap">
+      <p class="eyebrow">Project 01 · First AI-assisted product · February–March 2026</p>
+      <h1>Wordy</h1>
+      <p class="lead">From a family learning need to a working digital product.</p>
+      <ul class="tags" aria-label="Wordy technologies">
+        <li>Next.js</li><li>React</li><li>TypeScript</li><li>Prisma</li><li>PostgreSQL</li><li>Vercel</li>
+      </ul>
+      <div class="project-meta" aria-label="Project summary">
+        <div class="meta-item"><span>Context</span><strong>Private family learning application</strong></div>
+        <div class="meta-item"><span>My role</span><strong>Product vision and solution direction</strong></div>
+        <div class="meta-item"><span>Delivery</span><strong>AI-assisted implementation</strong></div>
+      </div>
+      <div class="page-actions">
+        <a class="button primary" href="../#projects">Back to Projects</a>
+        <a class="button" href="boomarena.html">Next: BoomArena</a>
+      </div>
+    </header>
+
+    <div class="case-layout wrap">
+      <aside class="case-toc" aria-label="Case study sections">
+        <p>On this page</p>
+        <ol>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#problem">Problem</a></li>
+          <li><a href="#role">My role</a></li>
+          <li><a href="#scope">Vision &amp; scope</a></li>
+          <li><a href="#architecture">Architecture</a></li>
+          <li><a href="#decisions">Decisions</a></li>
+          <li><a href="#iterations">Iterations</a></li>
+          <li><a href="#validation">Validation</a></li>
+          <li><a href="#outcome">Outcome</a></li>
+          <li><a href="#lessons">Lessons</a></li>
+          <li><a href="#next">Next</a></li>
+        </ol>
+      </aside>
+
+      <article class="case-content">
+        <section id="overview" aria-labelledby="overview-title">
+          <span class="section-number">01 · Project overview</span>
+          <h2 id="overview-title">A practical product built around a real family need</h2>
+          <p>Wordy is a private, phone-friendly vocabulary learning application for my family. It combines shared vocabulary decks with separate learner progress and multiple practice modes.</p>
+          <p>It was also my first independent experiment in directing AI-assisted product development: translating an informal need into explicit requirements, an evolving data model, a deployed application, and a set of product boundaries.</p>
+          <div class="disclosure">
+            <h3>AI implementation disclosure</h3>
+            <p>I owned the product vision, architectural direction, requirements, validation, and release decisions. AI coding agents generated and modified the implementation under my direction.</p>
+          </div>
+        </section>
+
+        <section id="problem" aria-labelledby="problem-title">
+          <span class="section-number">02 · The problem / motivation</span>
+          <h2 id="problem-title">Moving vocabulary practice beyond paper</h2>
+          <p>Learning new languages with my kids often started with writing unfamiliar words on paper. I wanted an additional way to collect those words and practice them from a phone or browser.</p>
+          <p>The central design challenge was shared content with personal learning state: the family should be able to use the same vocabulary decks, while each learner needed independent progress. The project also gave me a concrete way to test whether an AI coding assistant could turn that need into a real, deployed product under clear human direction.</p>
+        </section>
+
+        <section id="role" aria-labelledby="role-title">
+          <span class="section-number">03 · My role</span>
+          <h2 id="role-title">Product ownership and architectural direction</h2>
+          <p>I framed the problem, defined requirements and delivery milestones, directed architectural choices, reviewed generated behavior, tested important journeys, and prioritized corrections.</p>
+          <p>My responsibility covered the product and solution direction, including deployment, data design, experience, and proportionate security decisions. The implementation code itself was generated and modified by AI coding agents.</p>
+        </section>
+
+        <section id="scope" aria-labelledby="scope-title">
+          <span class="section-number">04 · Product vision and scope</span>
+          <h2 id="scope-title">One shared learning space, distinct learner journeys</h2>
+          <p>The product was intentionally scoped as a private family application rather than a public learning platform.</p>
+          <div class="scope-grid">
+            <div class="scope-item"><h3>Shared vocabulary</h3><p>Family members use common decks and cards instead of maintaining duplicate word lists.</p></div>
+            <div class="scope-item"><h3>Individual progress</h3><p>Review state, activity, streaks, and achievements remain associated with each learner.</p></div>
+            <div class="scope-item"><h3>Multiple learning modes</h3><p>Flashcards, multiple-choice questions, and typing practice support different ways to review.</p></div>
+            <div class="scope-item"><h3>Focused authoring</h3><p>Decks support manual card entry and tab-separated bulk import.</p></div>
+          </div>
+        </section>
+
+        <section id="architecture" aria-labelledby="architecture-title">
+          <span class="section-number">05 · Architecture</span>
+          <h2 id="architecture-title">A focused full-stack application</h2>
+          <p>Wordy uses one Next.js application for the React interface and API route handlers, Prisma for data access, PostgreSQL on Neon for persistence, and Vercel for hosting.</p>
+          <figure class="architecture-diagram" role="img" aria-label="Wordy architecture: family members use a Next.js application containing a React user interface and API route handlers. The API uses Prisma to access Neon PostgreSQL. Family access, profile state, validation, and progress calculations are cross-cutting responsibilities.">
+            <div class="diagram-flow" aria-hidden="true">
+              <div class="diagram-node">Family Members</div>
+              <div class="diagram-connector">→</div>
+              <div class="diagram-node stack emphasis">Next.js Application<div class="diagram-subnodes"><span>React UI</span><span>API Route Handlers</span></div></div>
+              <div class="diagram-connector">→</div>
+              <div class="diagram-node">Prisma</div>
+              <div class="diagram-connector">→</div>
+              <div class="diagram-node">Neon PostgreSQL</div>
+            </div>
+            <div class="diagram-responsibilities" aria-hidden="true">
+              <span>Family access</span><span>Profile state</span><span>Validation</span><span>Progress calculations</span>
+            </div>
+            <figcaption>Current deployed architecture and cross-cutting application responsibilities.</figcaption>
+          </figure>
+        </section>
+
+        <section id="decisions" aria-labelledby="decisions-title">
+          <span class="section-number">06 · Key architectural decisions</span>
+          <h2 id="decisions-title">Decisions shaped by product context</h2>
+          <p>The design evolved as the application moved from local validation to family use on the web. These decisions were not all fixed at the beginning.</p>
+          <div class="decision-list">
+            <article class="decision-card">
+              <header class="decision-header"><span class="decision-index">DECISION 01</span><h3>Shared content, individual learner progress</h3></header>
+              <div class="decision-body">
+                <div class="decision-field"><h4>Problem</h4><p>The family needed common vocabulary decks without combining each learner's progress.</p></div>
+                <div class="decision-field"><h4>Decision</h4><p>Keep decks and cards shared, while associating review data with an individual learner and card.</p></div>
+                <div class="decision-field"><h4>Rationale</h4><p>Shared content avoids duplicate maintenance; learner-specific state preserves an accurate personal journey.</p></div>
+                <div class="decision-field"><h4>Tradeoff</h4><p>Adding profiles required coordinated changes across the database, API, and interface.</p></div>
+                <div class="decision-field"><h4>Learning</h4><p>Identity and ownership affect the whole system, even in a small private application. Existing progress was preserved under a starter profile during the migration.</p></div>
+              </div>
+            </article>
+            <article class="decision-card">
+              <header class="decision-header"><span class="decision-index">DECISION 02</span><h3>Current ReviewState and append-only ReviewEvent history</h3></header>
+              <div class="decision-body">
+                <div class="decision-field"><h4>Problem</h4><p>Study sessions need fast access to current review state, while progress features need historical activity.</p></div>
+                <div class="decision-field"><h4>Decision</h4><p>Separate the current level and next review from an append-only history of learning activity.</p></div>
+                <div class="decision-field"><h4>Rationale</h4><p>The split supports efficient study flows and historical questions such as streaks, achievements, and progress by mode.</p></div>
+                <div class="decision-field"><h4>Tradeoff</h4><p>The current-state and historical representations must be kept consistent.</p></div>
+                <div class="decision-field"><h4>Learning</h4><p>Operational state and historical evidence answer different questions and benefit from distinct models.</p></div>
+              </div>
+            </article>
+            <article class="decision-card">
+              <header class="decision-header"><span class="decision-index">DECISION 03</span><h3>From local SQLite to Neon PostgreSQL and Vercel</h3></header>
+              <div class="decision-body">
+                <div class="decision-field"><h4>Problem</h4><p>The local prototype's storage and runtime no longer matched a web-deployed family application.</p></div>
+                <div class="decision-field"><h4>Decision</h4><p>Evolve from SQLite to managed PostgreSQL on Neon, deploy on Vercel, and apply Prisma migrations.</p></div>
+                <div class="decision-field"><h4>Rationale</h4><p>The managed services fit the application's new operating context without introducing a larger hosting architecture.</p></div>
+                <div class="decision-field"><h4>Tradeoff</h4><p>Deployment added migration and hosted-service considerations that were unnecessary during local validation.</p></div>
+                <div class="decision-field"><h4>Learning</h4><p>Infrastructure should evolve with the product context. A briefly explored Docker route was discarded rather than preserved for its own sake.</p></div>
+              </div>
+            </article>
+            <article class="decision-card">
+              <header class="decision-header"><span class="decision-index">DECISION 04</span><h3>Lightweight family access</h3></header>
+              <div class="decision-body">
+                <div class="decision-field"><h4>Problem</h4><p>An internet-accessible family tool needed access controls proportionate to its private household use.</p></div>
+                <div class="decision-field"><h4>Decision</h4><p>Use a lightweight family-access model instead of full individual account authentication.</p></div>
+                <div class="decision-field"><h4>Rationale</h4><p>The approach matches the limited audience and avoids account infrastructure beyond the product's intended scope.</p></div>
+                <div class="decision-field"><h4>Tradeoff</h4><p>It is not suitable as authentication for a public, multi-tenant product.</p></div>
+                <div class="decision-field"><h4>Learning</h4><p>Security decisions need to be explicit about context and limits; proportionate does not mean universally sufficient.</p></div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="iterations" aria-labelledby="iterations-title">
+          <span class="section-number">07 · Challenges and iterations</span>
+          <h2 id="iterations-title">The useful design emerged through refinement</h2>
+          <p>Iteration went beyond adding functionality. Profile selection was corrected to survive refresh and locking, mobile swipe behavior was refined, and progress summaries were simplified after an overly comparison-heavy version.</p>
+          <p>The move to profiles required a cross-cutting migration while preserving existing progress. When the application became internet-accessible, access-control and input-handling protections were also strengthened. These changes illustrate an architecture responding to observed product needs rather than appearing fully formed at the start.</p>
+        </section>
+
+        <section id="validation" aria-labelledby="validation-title">
+          <span class="section-number">08 · Validation</span>
+          <h2 id="validation-title">Targeted evidence, with stated limits</h2>
+          <p>The existing repository review reports 26 commits from February 5 to March 17, 2026, and ten passing focused regression tests: six for profile selection and persistence, and four for access and configuration behavior.</p>
+          <p class="note">These figures describe targeted verification, not comprehensive automated coverage. They should be rechecked against the private application repository before being treated as current.</p>
+        </section>
+
+        <section id="outcome" aria-labelledby="outcome-title">
+          <span class="section-number">09 · Outcome</span>
+          <h2 id="outcome-title">A deployed family product and a reusable way of working</h2>
+          <div class="outcome-grid">
+            <div class="outcome-item"><h3>Product outcome</h3><p>A web-based, phone-friendly learning application with shared decks, individual progress, and several practice modes.</p></div>
+            <div class="outcome-item"><h3>Architecture outcome</h3><p>A full-stack design that evolved from local validation to managed web deployment while preserving existing use.</p></div>
+          </div>
+          <p class="note">Wordy remains private because it contains family learning information. There is intentionally no public live demo or repository link.</p>
+        </section>
+
+        <section id="lessons" aria-labelledby="lessons-title">
+          <span class="section-number">10 · Lessons learned</span>
+          <h2 id="lessons-title">Direction, inspection, and iteration remain human responsibilities</h2>
+          <p>Wordy taught me to translate a personal need into explicit product boundaries, evolve a data model without abandoning existing usage, and treat AI-generated output as something to inspect and refine.</p>
+          <p>It also reinforced that architecture is not a one-time blueprint. The data model, hosting, access, and user experience all changed as the product moved from idea to real family use.</p>
+        </section>
+
+        <section id="next" aria-labelledby="next-title">
+          <span class="section-number">11 · What I would explore next</span>
+          <h2 id="next-title">Strengthen validation in proportion to future scope</h2>
+          <p>For continued private family use, the next useful exploration would be broader automated coverage around learning flows, progress calculations, and migration behavior, alongside ongoing usability refinement.</p>
+          <p>If the product context ever expanded beyond a private household, individually authenticated accounts and a corresponding security review would become architectural prerequisites—not incremental polish.</p>
+          <div class="case-next">
+            <h3>Continue to Project 02</h3>
+            <p>BoomArena takes the same AI-directed delivery approach into real-time multiplayer synchronization and server-authoritative state.</p>
+            <a class="button" href="boomarena.html">Explore BoomArena</a>
+          </div>
+        </section>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner wrap">
+      <p>© 2026 Maksim Kozliakov · Wordy architecture case study</p>
+      <div class="footer-links"><a href="../">Home</a><a href="../#projects">All projects</a></div>
+    </div>
+  </footer>
+</body>
+</html>
