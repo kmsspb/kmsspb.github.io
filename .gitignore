@@ -1,0 +1,14 @@
+# Protection against accidentally copying private prep materials into this public repository.
+private/
+private-notes/
+interview/
+recruitment-scripts.md
+summit-scripts.md
+wordy-codex-dossier.txt
+boomarena-story-brief.md
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.DS_Store
