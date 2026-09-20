@@ -11,7 +11,14 @@
   <meta property="og:title" content="BoomArena Architecture Case Study | Maksim Kozliakov">
   <meta property="og:description" content="How a local browser game evolved into a real-time multiplayer application with shared simulation, server authority, and private rooms.">
   <meta property="og:url" content="https://kmsspb.github.io/projects/boomarena.html">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content="https://kmsspb.github.io/assets/images/og-boomarena.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="BoomArena architecture case study by Maksim Kozliakov — real-time multiplayer and server-authoritative architecture.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="BoomArena Architecture Case Study | Maksim Kozliakov">
+  <meta name="twitter:description" content="A real-time multiplayer browser game with shared simulation, server authority, and private rooms.">
+  <meta name="twitter:image" content="https://kmsspb.github.io/assets/images/og-boomarena.png">
   <title>BoomArena Architecture Case Study | Maksim Kozliakov</title>
   <link rel="stylesheet" href="../assets/style.css">
 </head>
@@ -35,14 +42,22 @@
       <p class="eyebrow">Project 02 · Real-time multiplayer architecture</p>
       <h1>BoomArena</h1>
       <p class="lead">Real-time multiplayer architecture through AI-directed development.</p>
+      <template id="boomarena-case-screenshot">
+        <figure class="case-media"><img src="../assets/images/boomarena-gameplay.webp" width="1600" height="900" alt="BoomArena multiplayer match with players, bombs, and explosions in the arena."></figure>
+      </template>
       <ul class="tags" aria-label="BoomArena technologies">
         <li>TypeScript</li><li>Phaser</li><li>Cloudflare Workers</li><li>Durable Objects</li><li>WebSockets</li>
       </ul>
-      <div class="project-meta" aria-label="Project summary">
-        <div class="meta-item"><span>Context</span><strong>Independent multiplayer experiment</strong></div>
-        <div class="meta-item"><span>My role</span><strong>Product vision and architectural direction</strong></div>
-        <div class="meta-item"><span>Delivery</span><strong>AI-assisted implementation</strong></div>
-      </div>
+      <section class="at-a-glance" aria-labelledby="boomarena-glance-title">
+        <h2 id="boomarena-glance-title">At a Glance</h2>
+        <div class="at-a-glance-grid">
+          <div class="glance-item wide"><span>Challenge</span><p>Designing a real-time multiplayer experience with consistent game state across clients.</p></div>
+          <div class="glance-item wide"><span>My role</span><p>Product vision, architectural direction, requirements, AI-directed implementation, and validation.</p></div>
+          <div class="glance-item"><span>Architecture</span><p>TypeScript, Phaser, Cloudflare Workers, Durable Objects, and WebSockets.</p></div>
+          <div class="glance-item"><span>Outcome</span><p>Deployed multiplayer browser game supporting private rooms for two to five friends.</p></div>
+          <div class="glance-item"><span>Repository &amp; quality evidence</span><p>13 milestone commits and 136 passing automated tests in the reviewed v1.3 release.</p></div>
+        </div>
+      </section>
       <div class="page-actions">
         <a class="button primary external" href="https://boom-arena.kms-spb.workers.dev/" target="_blank" rel="noopener noreferrer">Open Live Demo</a>
         <a class="button" href="../#projects">Back to Projects</a>
@@ -196,6 +211,14 @@
           <h2 id="iterations-title">The multiplayer system followed a proven local loop</h2>
           <p>The project began with deterministic two-player local gameplay. I expanded the match loop before tackling online distribution, then extracted the renderer-independent simulation and introduced private WebSocket rooms with server authority.</p>
           <p>Later milestones refined mobile controls, reconnection, and state synchronization before adding sudden death and team modes. The sequence matters: the final architecture was reached through iteration, not specified in full at the beginning.</p>
+          <ol class="timeline" aria-label="BoomArena development milestones">
+            <li><span class="timeline-version">v0.1</span><h3>Deterministic foundation</h3><p>Deterministic local gameplay.</p></li>
+            <li><span class="timeline-version">v0.8</span><h3>Complete local match</h3><p>Complete local match experience with richer gameplay.</p></li>
+            <li><span class="timeline-version">v0.9</span><h3>Online architecture</h3><p>Shared simulation and server-authoritative online multiplayer.</p></li>
+            <li><span class="timeline-version">v1.1</span><h3>Usability refinement</h3><p>Networking and mobile usability refinement.</p></li>
+            <li><span class="timeline-version">v1.2</span><h3>Match pressure</h3><p>Sudden death and eliminated-player experience.</p></li>
+            <li><span class="timeline-version">v1.3</span><h3>Team rules</h3><p>Team play and cross-cutting rule changes.</p></li>
+          </ol>
         </section>
 
         <section id="validation" aria-labelledby="validation-title">

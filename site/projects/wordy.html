@@ -11,7 +11,14 @@
   <meta property="og:title" content="Wordy Architecture Case Study | Maksim Kozliakov">
   <meta property="og:description" content="From a family learning need to a working digital product: shared vocabulary, individual progress, and an evolving deployment architecture.">
   <meta property="og:url" content="https://kmsspb.github.io/projects/wordy.html">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content="https://kmsspb.github.io/assets/images/og-wordy.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Wordy architecture case study by Maksim Kozliakov — shared vocabulary and individual learning progress.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Wordy Architecture Case Study | Maksim Kozliakov">
+  <meta name="twitter:description" content="A private family learning product with shared vocabulary, individual progress, and an evolving deployment architecture.">
+  <meta name="twitter:image" content="https://kmsspb.github.io/assets/images/og-wordy.png">
   <title>Wordy Architecture Case Study | Maksim Kozliakov</title>
   <link rel="stylesheet" href="../assets/style.css">
 </head>
@@ -35,14 +42,22 @@
       <p class="eyebrow">Project 01 · First AI-assisted product · February–March 2026</p>
       <h1>Wordy</h1>
       <p class="lead">From a family learning need to a working digital product.</p>
+      <template id="wordy-case-screenshot">
+        <figure class="case-media"><img src="../assets/images/wordy-learning.webp" width="1600" height="900" alt="Sanitized Wordy vocabulary learning interface with no personal learner data."></figure>
+      </template>
       <ul class="tags" aria-label="Wordy technologies">
         <li>Next.js</li><li>React</li><li>TypeScript</li><li>Prisma</li><li>PostgreSQL</li><li>Vercel</li>
       </ul>
-      <div class="project-meta" aria-label="Project summary">
-        <div class="meta-item"><span>Context</span><strong>Private family learning application</strong></div>
-        <div class="meta-item"><span>My role</span><strong>Product vision and solution direction</strong></div>
-        <div class="meta-item"><span>Delivery</span><strong>AI-assisted implementation</strong></div>
-      </div>
+      <section class="at-a-glance" aria-labelledby="wordy-glance-title">
+        <h2 id="wordy-glance-title">At a Glance</h2>
+        <div class="at-a-glance-grid">
+          <div class="glance-item wide"><span>Challenge</span><p>Shared family vocabulary content with individual learning progress for each learner.</p></div>
+          <div class="glance-item wide"><span>My role</span><p>Product ownership, solution architecture, data modeling, AI-directed implementation, and validation.</p></div>
+          <div class="glance-item"><span>Architecture</span><p>Next.js, React, TypeScript, Prisma, Neon PostgreSQL, and Vercel.</p></div>
+          <div class="glance-item"><span>Outcome</span><p>Deployed private family learning application.</p></div>
+          <div class="glance-item"><span>Repository &amp; quality evidence</span><p>26 repository commits and 10 focused regression tests in the reviewed release.</p></div>
+        </div>
+      </section>
       <div class="page-actions">
         <a class="button primary" href="../#projects">Back to Projects</a>
         <a class="button" href="boomarena.html">Next: BoomArena</a>
@@ -124,6 +139,31 @@
             </div>
             <figcaption>Current deployed architecture and cross-cutting application responsibilities.</figcaption>
           </figure>
+
+          <div class="data-architecture">
+            <h3>Data architecture: shared content, learner-specific state</h3>
+            <p>Vocabulary decks and cards are shared. Current review state and historical learning events remain associated with an individual profile and card.</p>
+            <figure class="architecture-diagram" role="img" aria-label="Conceptual Wordy data model. Shared vocabulary contains decks and cards. Each card can have learner-specific ReviewState and ReviewEvent records associated with a profile.">
+              <div class="data-model" aria-hidden="true">
+                <div class="data-model-node shared">Shared Vocabulary</div>
+                <div class="data-model-arrow">↓</div>
+                <div class="data-model-node">Deck</div>
+                <div class="data-model-arrow">↓</div>
+                <div class="data-model-node">Card</div>
+                <div class="data-model-arrow">↓</div>
+                <div class="data-model-branches">
+                  <div class="data-model-node">ReviewState</div>
+                  <div class="data-model-node">ReviewEvent</div>
+                </div>
+                <div class="data-profile">
+                  <div class="data-model-arrow">↓</div>
+                  <div class="data-model-node shared">Profile</div>
+                </div>
+              </div>
+              <figcaption>Shared vocabulary content is separated from learner-specific current state and historical learning events.</figcaption>
+            </figure>
+            <p><strong>ReviewState answers where a learner is now. ReviewEvent preserves what happened over time.</strong> This separation supports efficient study sessions while retaining the activity history needed for progress analysis, streaks, achievements, and future analytics.</p>
+          </div>
         </section>
 
         <section id="decisions" aria-labelledby="decisions-title">
