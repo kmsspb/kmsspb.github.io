@@ -1,35 +1,96 @@
-# Maksim Kozliakov — public portfolio website
+# Maksim Kozliakov — AI Architecture Portfolio
 
-**PUBLIC REPOSITORY. Every committed file, including previous commits, is visible to others.**
+Public professional portfolio for Maksim Kozliakov, an intelligent automation specialist with a growing focus on AI Architecture, solution design, product thinking, and AI-assisted delivery.
 
-This package contains only website code and public project case studies. Personal interview guides, event scripts, Codex dossiers, and sensitive notes belong in a **different private repository**. Never upload the companion private ZIP here.
+Live website: [https://kmsspb.github.io/](https://kmsspb.github.io/)
 
-## Setup
-1. On GitHub create a **public** repository named `<username>.github.io` (use `kmsspb.github.io` only if your GitHub account is `kmsspb`). Do not initialize it with files.
-2. Unzip **this public package**. From inside its root run:
+## Featured projects
+
+- **Wordy** — a private family vocabulary-learning application and case study in shared content, learner-specific progress, data modeling, and evolving deployment architecture.
+- **BoomArena** — a public real-time multiplayer browser game and case study in deterministic simulation, server authority, WebSockets, and Cloudflare Durable Objects.
+
+These are independent architecture projects. The case studies distinguish product ownership and architectural direction from implementation generated and modified by AI coding agents.
+
+## Technical implementation
+
+- Static semantic HTML and CSS.
+- No frontend framework or build step.
+- Responsive layouts and accessible HTML/CSS architecture diagrams.
+- GitHub Pages hosting.
+- GitHub Actions deployment from `site/`.
+- Typographic Open Graph preview cards in PNG format, with reproducible SVG sources.
+
+## Repository structure
+
+- `site/index.html` — homepage.
+- `site/projects/wordy.html` — Wordy architecture case study.
+- `site/projects/boomarena.html` — BoomArena architecture case study.
+- `site/assets/style.css` — shared responsive design system.
+- `site/assets/images/` — social preview assets and future sanitized product screenshots.
+- `.github/workflows/pages.yml` — GitHub Pages deployment workflow.
+
+## Local preview
+
+No installation is required. From the repository root, run any local static server, for example:
 
 ```bash
-git init
-git add README.md .gitignore .github site
-git diff --cached --name-only  # inspect all files about to be public
-git commit -m "Publish AI Architect portfolio starter"
-git branch -M main
-git remote add origin https://github.com/<username>/<username>.github.io.git
-git push -u origin main
+python -m http.server 8000 --directory site
 ```
 
-3. In repository Settings → Pages → Build and deployment set Source to **GitHub Actions**.
-4. Check Actions → Deploy portfolio to GitHub Pages; open `https://<username>.github.io/`.
+Then open [http://localhost:8000/](http://localhost:8000/).
 
-The workflow publishes only `site/` as Pages artifacts, **but the entire repository is public**. Not deploying a file does not make the committed file private. `.gitignore` is an extra guard, not an access control.
+Opening the HTML files directly also works for basic review, but a local server provides behavior closer to GitHub Pages.
 
-## Site content
-- `site/index.html`: homepage
-- `site/projects/wordy.html`: Wordy case study grounded in reviewed, publication-safe project facts
-- `site/projects/boomarena.html`: BoomArena case study grounded in reviewed, publication-safe project facts
-- `site/assets/style.css`: responsive design
-- `.github/workflows/pages.yml`: publish `site/` on pushes to `main`
+## Product screenshots still needed
 
-Wordy is a private family application. Do not publish a direct app URL, account access, learner names, real word decks, session cookies, security configurations or private repo links unless you have deliberately reviewed what that reveals. A sanitized screenshot can demonstrate the product instead.
+The site includes responsive `.project-media` and `.case-media` containers, but does not request nonexistent image files or show fake placeholders. Add only reviewed, real screenshots.
 
-Before every push: `git status`, `git diff --cached --name-only`, and review the staged files. Never commit secrets even to the private notes repo. If sensitive information was already pushed, deleting it in a later commit is not enough; consult GitHub's sensitive-data-removal guidance.
+### BoomArena
+
+- Expected file: `site/assets/images/boomarena-gameplay.webp`
+- Recommended size: 1600 × 900 pixels, WebP.
+- Content: an active multiplayer match showing the arena, players, bombs, and explosions.
+- Remove or obscure private room codes, tokens, browser chrome, and session information.
+- Suggested alt text: `BoomArena multiplayer match with players, bombs, and explosions in the arena.`
+
+### Wordy
+
+- Expected file: `site/assets/images/wordy-learning.webp`
+- Recommended size: 1600 × 900 pixels, WebP.
+- Content: a sanitized deck library, flashcard interface, or progress dashboard.
+- Remove children's names, real vocabulary records, private URLs, access information, and browser session details.
+- Suggested alt text: `Sanitized Wordy vocabulary learning interface with no personal learner data.`
+
+The homepage and case-study pages contain inert `<template>` blocks with the prepared `.project-media` and `.case-media` markup. Images inside templates are not requested or displayed. Once reviewed assets are available, place them in the image directory and move each prepared `<figure>` out of its template at the same location. Until then, the text-only cards remain the intentional published design.
+
+## Social previews
+
+The deployed Open Graph images are 1200 × 630 pixel typographic cards:
+
+- `site/assets/images/og-home.png`
+- `site/assets/images/og-wordy.png`
+- `site/assets/images/og-boomarena.png`
+
+The Wordy and BoomArena cards intentionally use typography rather than fabricated product imagery. A reviewed real screenshot can replace the visual treatment later without changing the metadata URLs.
+
+## Deployment
+
+Pushes to `main` trigger `.github/workflows/pages.yml`. The workflow checks out the repository, configures GitHub Pages, uploads `site/`, and deploys it as the Pages artifact.
+
+For first-time repository configuration, set **Settings → Pages → Build and deployment → Source** to **GitHub Actions**. The workflow requires the existing `contents: read`, `pages: write`, and `id-token: write` permissions.
+
+Before publishing changes:
+
+```bash
+git status
+git diff --check
+git diff --cached --name-only
+```
+
+Review every staged file because the complete repository history is public, even though only `site/` is deployed.
+
+## Privacy notice
+
+Only public portfolio content belongs in this repository. Personal interview preparation, event or summit talking points, private AI-assistant conversations, internal project dossiers, family learning records, credentials, and employer-confidential information must remain outside this repository.
+
+Wordy is a private family application. Do not publish its live URL, repository, account access, learner names, real learning records, session information, or security configuration.

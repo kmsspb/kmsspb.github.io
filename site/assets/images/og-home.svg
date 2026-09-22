@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Maksim Kozliakov portfolio social preview</title>
+  <desc id="desc">AI Architecture and Intelligent Automation. Turning ideas into working products.</desc>
+  <rect width="1200" height="630" fill="#102a43"/>
+  <circle cx="1080" cy="115" r="230" fill="none" stroke="#3b6769" stroke-width="2"/>
+  <path d="M80 90h1040M80 540h1040" stroke="#36516b" stroke-width="1"/>
+  <circle cx="82" cy="90" r="7" fill="#80c8c1"/>
+  <text x="82" y="155" fill="#80c8c1" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="4">MAKSIM KOZLIAKOV</text>
+  <text x="82" y="286" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="64" font-weight="700">AI Architecture</text>
+  <text x="82" y="362" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="64" font-weight="700">&amp; Intelligent Automation</text>
+  <text x="82" y="455" fill="#c7d5e3" font-family="Segoe UI, Arial, sans-serif" font-size="30">Turning ideas into working products.</text>
+  <text x="82" y="583" fill="#80c8c1" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="600">KMSSPB.GITHUB.IO</text>
+</svg>

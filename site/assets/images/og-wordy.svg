@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Wordy architecture case study social preview</title>
+  <desc id="desc">A private family learning product with shared vocabulary and individual progress.</desc>
+  <rect width="1200" height="630" fill="#f5f7fa"/>
+  <rect x="0" y="0" width="22" height="630" fill="#0b746d"/>
+  <circle cx="1030" cy="150" r="245" fill="none" stroke="#c6dcd9" stroke-width="2"/>
+  <path d="M82 90h1038M82 540h1038" stroke="#d7e0e8" stroke-width="2"/>
+  <text x="82" y="148" fill="#0b746d" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="3">ARCHITECTURE CASE STUDY · PROJECT 01</text>
+  <text x="82" y="285" fill="#102a43" font-family="Segoe UI, Arial, sans-serif" font-size="92" font-weight="750">Wordy</text>
+  <text x="82" y="370" fill="#34485d" font-family="Segoe UI, Arial, sans-serif" font-size="34">Shared vocabulary. Individual progress.</text>
+  <text x="82" y="428" fill="#566577" font-family="Segoe UI, Arial, sans-serif" font-size="25">A private family learning product.</text>
+  <text x="82" y="582" fill="#102a43" font-family="Segoe UI, Arial, sans-serif" font-size="19" font-weight="700">MAKSIM KOZLIAKOV · AI ARCHITECTURE PORTFOLIO</text>
+</svg>
