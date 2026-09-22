@@ -1,0 +1,31 @@
+<!--
+  Copy this entire <article> into the PROJECT CARDS region in site/index.html.
+  Replace every double-braced placeholder token. Delete the optional image or external-link
+  blocks when the corresponding reviewed asset or URL is unavailable.
+-->
+<article class="project-card">
+  <div class="project-order"><span>Project {{PROJECT_NUMBER}}</span><span>{{STATUS_LABEL}}</span></div>
+
+  <!-- OPTIONAL COVER IMAGE: delete this figure when no reviewed image exists. -->
+  <figure class="project-media">
+    <img src="assets/images/projects/{{PROJECT_SLUG}}/cover.webp" width="1600" height="900" alt="{{COVER_IMAGE_ALT}}">
+  </figure>
+
+  <h3>{{PROJECT_TITLE}}</h3>
+  <p class="project-subtitle">{{PROJECT_SUBTITLE}}</p>
+  <div class="project-facts">
+    <div><span>Motivation</span><p>{{PROJECT_MOTIVATION}}</p></div>
+    <div><span>Architectural focus</span><p>{{ARCHITECTURAL_FOCUS}}</p></div>
+    <div><span>My role</span><p>{{MY_ROLE_SUMMARY}}</p></div>
+  </div>
+  <ul class="tags" aria-label="{{PROJECT_TITLE}} technologies">
+    <li>{{TECHNOLOGY_1}}</li>
+    <li>{{TECHNOLOGY_2}}</li>
+    <li>{{TECHNOLOGY_3}}</li>
+  </ul>
+  <div class="card-actions">
+    <a class="button primary" href="projects/{{PROJECT_SLUG}}.html">Explore Architecture</a>
+    <!-- OPTIONAL EXTERNAL LINK: remove when no verified public URL exists. -->
+    <a class="button external" href="{{EXTERNAL_URL}}" target="_blank" rel="noopener noreferrer">{{EXTERNAL_LINK_LABEL}}</a>
+  </div>
+</article>

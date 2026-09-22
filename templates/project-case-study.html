@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{{META_DESCRIPTION}}">
+  <meta name="theme-color" content="#f5f7fa">
+  <link rel="canonical" href="https://kmsspb.github.io/projects/{{PROJECT_SLUG}}.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Maksim Kozliakov">
+  <meta property="og:title" content="{{PROJECT_TITLE}} Architecture Case Study | Maksim Kozliakov">
+  <meta property="og:description" content="{{OG_DESCRIPTION}}">
+  <meta property="og:url" content="https://kmsspb.github.io/projects/{{PROJECT_SLUG}}.html">
+  <meta property="og:image" content="https://kmsspb.github.io/assets/images/og-{{PROJECT_SLUG}}.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{{OG_IMAGE_ALT}}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{PROJECT_TITLE}} Architecture Case Study | Maksim Kozliakov">
+  <meta name="twitter:description" content="{{OG_DESCRIPTION}}">
+  <meta name="twitter:image" content="https://kmsspb.github.io/assets/images/og-{{PROJECT_SLUG}}.png">
+  <title>{{PROJECT_TITLE}} Architecture Case Study | Maksim Kozliakov</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <header class="site-header">
+    <nav class="site-nav wrap" aria-label="Primary navigation">
+      <a class="brand" href="../">Maksim Kozliakov</a>
+      <ul class="nav-links">
+        <li><a href="../">Home</a></li>
+        <li><a href="../#about">About</a></li>
+        <li><a href="../#projects">Projects</a></li>
+        <li><a class="external" href="https://www.linkedin.com/in/maksim-kozliakov/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        <li><a class="external" href="https://github.com/kmsspb" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="content">
+    <header class="case-hero wrap">
+      <p class="eyebrow">Project {{PROJECT_NUMBER}} · {{PROJECT_CONTEXT}}</p>
+      <h1>{{PROJECT_TITLE}}</h1>
+      <p class="lead">{{PROJECT_SUBTITLE}}</p>
+
+      <!-- OPTIONAL COVER IMAGE: delete this figure when no reviewed image exists. -->
+      <figure class="case-media">
+        <img src="../assets/images/projects/{{PROJECT_SLUG}}/cover.webp" width="1600" height="900" alt="{{COVER_IMAGE_ALT}}">
+      </figure>
+
+      <ul class="tags" aria-label="{{PROJECT_TITLE}} technologies">
+        <li>{{TECHNOLOGY_1}}</li>
+        <li>{{TECHNOLOGY_2}}</li>
+        <li>{{TECHNOLOGY_3}}</li>
+      </ul>
+
+      <section class="at-a-glance" aria-labelledby="{{PROJECT_SLUG}}-glance-title">
+        <h2 id="{{PROJECT_SLUG}}-glance-title">At a Glance</h2>
+        <div class="at-a-glance-grid">
+          <div class="glance-item wide"><span>Challenge</span><p>{{CHALLENGE_SUMMARY}}</p></div>
+          <div class="glance-item wide"><span>My role</span><p>{{MY_ROLE_SUMMARY}}</p></div>
+          <div class="glance-item"><span>Architecture</span><p>{{ARCHITECTURE_SUMMARY}}</p></div>
+          <div class="glance-item"><span>Outcome</span><p>{{OUTCOME_SUMMARY}}</p></div>
+          <div class="glance-item"><span>Repository &amp; quality evidence</span><p>{{EVIDENCE_SUMMARY}}</p></div>
+        </div>
+      </section>
+
+      <div class="page-actions">
+        <a class="button primary" href="../#projects">Back to Projects</a>
+        <!-- OPTIONAL EXTERNAL LINK: remove when no verified public URL exists. -->
+        <a class="button external" href="{{EXTERNAL_URL}}" target="_blank" rel="noopener noreferrer">{{EXTERNAL_LINK_LABEL}}</a>
+      </div>
+    </header>
+
+    <div class="case-layout wrap">
+      <aside class="case-toc" aria-label="Case study sections">
+        <p>On this page</p>
+        <ol>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#problem">Problem</a></li>
+          <li><a href="#role">My role</a></li>
+          <li><a href="#scope">Vision &amp; scope</a></li>
+          <li><a href="#architecture">Architecture</a></li>
+          <li><a href="#decisions">Decisions</a></li>
+          <li><a href="#iterations">Iterations</a></li>
+          <li><a href="#validation">Validation</a></li>
+          <li><a href="#outcome">Outcome</a></li>
+          <li><a href="#lessons">Lessons</a></li>
+          <li><a href="#next">Next</a></li>
+        </ol>
+      </aside>
+
+      <article class="case-content">
+        <section id="overview" aria-labelledby="overview-title">
+          <span class="section-number">01 · Project overview</span>
+          <h2 id="overview-title">{{OVERVIEW_HEADING}}</h2>
+          <p>{{OVERVIEW_PARAGRAPH_1}}</p>
+          <p>{{OVERVIEW_PARAGRAPH_2}}</p>
+
+          <!-- Keep this disclosure when AI coding agents generated or modified implementation. Otherwise replace it with an accurate delivery disclosure or remove the block. -->
+          <div class="disclosure">
+            <h3>AI implementation disclosure</h3>
+            <p>{{AI_IMPLEMENTATION_DISCLOSURE}}</p>
+          </div>
+        </section>
+
+        <section id="problem" aria-labelledby="problem-title">
+          <span class="section-number">02 · The problem / motivation</span>
+          <h2 id="problem-title">{{PROBLEM_HEADING}}</h2>
+          <p>{{PROBLEM_DESCRIPTION}}</p>
+        </section>
+
+        <section id="role" aria-labelledby="role-title">
+          <span class="section-number">03 · My role</span>
+          <h2 id="role-title">{{ROLE_HEADING}}</h2>
+          <p>{{ROLE_DESCRIPTION}}</p>
+        </section>
+
+        <section id="scope" aria-labelledby="scope-title">
+          <span class="section-number">04 · Product vision and scope</span>
+          <h2 id="scope-title">{{SCOPE_HEADING}}</h2>
+          <p>{{SCOPE_DESCRIPTION}}</p>
+          <div class="scope-grid">
+            <div class="scope-item"><h3>{{SCOPE_ITEM_1_TITLE}}</h3><p>{{SCOPE_ITEM_1_DESCRIPTION}}</p></div>
+            <div class="scope-item"><h3>{{SCOPE_ITEM_2_TITLE}}</h3><p>{{SCOPE_ITEM_2_DESCRIPTION}}</p></div>
+          </div>
+        </section>
+
+        <section id="architecture" aria-labelledby="architecture-title">
+          <span class="section-number">05 · Architecture</span>
+          <h2 id="architecture-title">{{ARCHITECTURE_HEADING}}</h2>
+          <p>{{ARCHITECTURE_DESCRIPTION}}</p>
+
+          <!-- Replace this simple flow with verified components only. Duplicate nodes/connectors when needed. -->
+          <figure class="architecture-diagram" role="img" aria-label="{{ARCHITECTURE_DIAGRAM_ALT}}">
+            <div class="diagram-flow" aria-hidden="true">
+              <div class="diagram-node">{{COMPONENT_1}}</div>
+              <div class="diagram-connector">→</div>
+              <div class="diagram-node emphasis">{{COMPONENT_2}}</div>
+              <div class="diagram-connector">→</div>
+              <div class="diagram-node">{{COMPONENT_3}}</div>
+            </div>
+            <figcaption>{{ARCHITECTURE_DIAGRAM_CAPTION}}</figcaption>
+          </figure>
+        </section>
+
+        <section id="decisions" aria-labelledby="decisions-title">
+          <span class="section-number">06 · Key architectural decisions</span>
+          <h2 id="decisions-title">{{DECISIONS_HEADING}}</h2>
+          <p>{{DECISIONS_INTRODUCTION}}</p>
+          <div class="decision-list">
+            <!-- Duplicate this article for each verified architectural decision. -->
+            <article class="decision-card">
+              <header class="decision-header"><span class="decision-index">DECISION 01</span><h3>{{DECISION_TITLE}}</h3></header>
+              <div class="decision-body">
+                <div class="decision-field"><h4>Problem</h4><p>{{DECISION_PROBLEM}}</p></div>
+                <div class="decision-field"><h4>Decision</h4><p>{{DECISION_CHOICE}}</p></div>
+                <div class="decision-field"><h4>Rationale</h4><p>{{DECISION_RATIONALE}}</p></div>
+                <div class="decision-field"><h4>Tradeoff</h4><p>{{DECISION_TRADEOFF}}</p></div>
+                <div class="decision-field"><h4>Learning</h4><p>{{DECISION_LEARNING}}</p></div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="iterations" aria-labelledby="iterations-title">
+          <span class="section-number">07 · Challenges and iterations</span>
+          <h2 id="iterations-title">{{ITERATIONS_HEADING}}</h2>
+          <p>{{ITERATIONS_DESCRIPTION}}</p>
+        </section>
+
+        <section id="validation" aria-labelledby="validation-title">
+          <span class="section-number">08 · Validation</span>
+          <h2 id="validation-title">{{VALIDATION_HEADING}}</h2>
+          <p>{{VALIDATION_DESCRIPTION}}</p>
+          <p class="note">{{VALIDATION_LIMITS}}</p>
+        </section>
+
+        <section id="outcome" aria-labelledby="outcome-title">
+          <span class="section-number">09 · Outcome</span>
+          <h2 id="outcome-title">{{OUTCOME_HEADING}}</h2>
+          <div class="outcome-grid">
+            <div class="outcome-item"><h3>Product outcome</h3><p>{{PRODUCT_OUTCOME}}</p></div>
+            <div class="outcome-item"><h3>Architecture outcome</h3><p>{{ARCHITECTURE_OUTCOME}}</p></div>
+          </div>
+        </section>
+
+        <section id="lessons" aria-labelledby="lessons-title">
+          <span class="section-number">10 · Lessons learned</span>
+          <h2 id="lessons-title">{{LESSONS_HEADING}}</h2>
+          <p>{{LESSONS_DESCRIPTION}}</p>
+        </section>
+
+        <section id="next" aria-labelledby="next-title">
+          <span class="section-number">11 · What I would explore next</span>
+          <h2 id="next-title">{{NEXT_HEADING}}</h2>
+          <p>{{NEXT_DESCRIPTION}}</p>
+          <div class="case-next">
+            <h3>Explore more architecture projects</h3>
+            <p>Return to the project collection for more examples of product thinking, architectural decisions, and AI-directed delivery.</p>
+            <a class="button" href="../#projects">Explore All Projects</a>
+          </div>
+        </section>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner wrap">
+      <p>© 2026 Maksim Kozliakov · {{PROJECT_TITLE}} architecture case study</p>
+      <div class="footer-links"><a href="../">Home</a><a href="../#projects">All projects</a></div>
+    </div>
+  </footer>
+</body>
+</html>

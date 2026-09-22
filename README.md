@@ -27,7 +27,16 @@ These are independent architecture projects. The case studies distinguish produc
 - `site/projects/boomarena.html` — BoomArena architecture case study.
 - `site/assets/style.css` — shared responsive design system.
 - `site/assets/images/` — social preview assets and future sanitized product screenshots.
+- `templates/project-case-study.html` — reusable full case-study source template; not deployed.
+- `templates/project-card.html` — reusable homepage card source template; not deployed.
+- `docs/ADDING_PROJECT.md` — project authoring and validation checklist.
 - `.github/workflows/pages.yml` — GitHub Pages deployment workflow.
+
+## Adding a project
+
+New projects require one full case-study page and one homepage card. Copy the HTML templates, replace their searchable placeholders, add only reviewed images, and publish through the existing branch and pull-request workflow. This remains a zero-build process.
+
+See [Adding a Project](docs/ADDING_PROJECT.md) for the complete authoring contract, image convention, validation checklist, and publishing steps.
 
 ## Local preview
 
