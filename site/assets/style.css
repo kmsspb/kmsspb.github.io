@@ -183,6 +183,25 @@ main { overflow: hidden; }
 .diagram-notes { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; margin-top: 20px; }
 .diagram-notes p { margin: 0; padding: 10px 12px; border-radius: 8px; background: var(--surface-soft); font-size: .75rem; text-align: center; }
 .architecture-diagram figcaption { margin-top: 18px; color: var(--muted); font-size: .76rem; text-align: center; }
+.supply-chain-card .project-order > span:first-child { white-space: nowrap; }
+.supply-chain-positioning { max-width: 800px; margin-top: 1rem; font-size: .9rem; }
+.supply-chain-system { display: grid; grid-template-columns: minmax(0,1.6fr) minmax(0,1fr); gap: 24px; align-items: start; }
+.supply-chain-flow { margin: 0; padding: 0; list-style: none; }
+.supply-chain-flow li + li { margin-top: 0; }
+.supply-chain-flow .diagram-node { min-width: 0; }
+.supply-chain-flow .diagram-node span { color: var(--muted); font-size: .76rem; font-weight: 400; }
+.supply-chain-arrow { display: block; padding-block: 5px; color: var(--accent-strong); font-size: 1.2rem; line-height: 1.4; text-align: center; }
+.supply-chain-mcp { margin-top: 120px; padding: 18px; border: 1px solid var(--line-strong); border-radius: var(--radius-small); background: var(--surface-soft); }
+.supply-chain-mcp .eyebrow { margin-bottom: .6rem; font-size: .65rem; letter-spacing: .08em; }
+.supply-chain-mcp h3, .supply-chain-future h3 { font-size: 1rem; line-height: 1.4; }
+.supply-chain-mcp p, .supply-chain-future p { margin-bottom: .8rem; font-size: .8rem; }
+.supply-chain-mcp p:last-child, .supply-chain-future p:last-child { margin-bottom: 0; }
+.supply-chain-boundary-label { padding-top: .8rem; border-top: 1px solid var(--line-strong); }
+.supply-chain-future { grid-column: 1/-1; padding: 20px; border: 2px dashed var(--line-strong); border-radius: var(--radius-small); background: var(--surface-soft); }
+@media (max-width: 760px) {
+  .supply-chain-system { grid-template-columns: minmax(0,1fr); gap: 20px; }
+  .supply-chain-mcp { margin-top: 0; }
+}
 .data-architecture { margin-top: 2.5rem; }
 .data-architecture h3 { margin-bottom: .6rem; font-size: 1.3rem; }
 .data-model { display: grid; justify-items: center; gap: 8px; margin-top: 1.6rem; }

@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="An architecture case study in hybrid supply-chain automation: deterministic workflows, Azure OpenAI reasoning, evidence validation, enterprise-style integrations, and controlled action boundaries.">
+  <meta name="theme-color" content="#f5f7fa">
+  <link rel="canonical" href="https://kmsspb.github.io/projects/supply-chain-exception-resolution.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Maksim Kozliakov">
+  <meta property="og:title" content="Supply Chain Exception Resolution Agent Architecture Case Study | Maksim Kozliakov">
+  <meta property="og:description" content="Enterprise automation meets advisory AI reasoning: evidence, resilient integrations, traceable recommendations, and explicit authorization boundaries.">
+  <meta property="og:url" content="https://kmsspb.github.io/projects/supply-chain-exception-resolution.html">
+  <meta property="og:image" content="https://kmsspb.github.io/assets/images/og-supply-chain-exception-resolution.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Project 03: Supply Chain Exception Resolution Agent. Hybrid intelligent automation: evidence, reasoning, and controlled action boundaries.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Supply Chain Exception Resolution Agent Architecture Case Study | Maksim Kozliakov">
+  <meta name="twitter:description" content="Enterprise automation meets advisory AI reasoning: evidence, resilient integrations, traceable recommendations, and explicit authorization boundaries.">
+  <meta name="twitter:image" content="https://kmsspb.github.io/assets/images/og-supply-chain-exception-resolution.png">
+  <meta name="twitter:image:alt" content="Project 03: Supply Chain Exception Resolution Agent. Hybrid intelligent automation: evidence, reasoning, and controlled action boundaries.">
+  <title>Supply Chain Exception Resolution Agent Architecture Case Study | Maksim Kozliakov</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <header class="site-header">
+    <nav class="site-nav wrap" aria-label="Primary navigation">
+      <a class="brand" href="../">Maksim Kozliakov</a>
+      <ul class="nav-links">
+        <li><a href="../">Home</a></li>
+        <li><a href="../#about">About</a></li>
+        <li><a href="../#projects">Projects</a></li>
+        <li><a class="external" href="https://www.linkedin.com/in/maksim-kozliakov/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        <li><a class="external" href="https://github.com/kmsspb" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="content">
+    <header class="case-hero wrap">
+      <p class="eyebrow">Project 03 · Independent technical demonstrator</p>
+      <h1>Supply Chain Exception Resolution Agent</h1>
+      <p class="lead">Hybrid Intelligent Automation with AI Reasoning and Enterprise Integration</p>
+      <p class="supply-chain-positioning">Enterprise Intelligent Automation · AI Solution Architecture · Human-Centered Agentic Workflows</p>
+
+      <ul class="tags" aria-label="Supply Chain Exception Resolution Agent technologies">
+        <li>Python</li><li>FastAPI</li><li>Azure OpenAI</li><li>REST APIs</li><li>MCP</li><li>SQLite</li><li>Pytest</li>
+      </ul>
+
+      <section class="at-a-glance" aria-labelledby="supply-chain-glance-title">
+        <h2 id="supply-chain-glance-title">At a Glance</h2>
+        <div class="at-a-glance-grid">
+          <div class="glance-item wide"><span>Challenge</span><p>Investigate ambiguous shipment exceptions using fragmented ERP, logistics, and carrier-note evidence.</p></div>
+          <div class="glance-item wide"><span>My role</span><p>Problem framing, solution architecture, process and integration design, implementation direction, and validation.</p></div>
+          <div class="glance-item"><span>Architecture</span><p>Deterministic orchestration, replaceable reasoning, typed reads, evidence validation, and explicit action boundaries.</p></div>
+          <div class="glance-item"><span>Outcome</span><p>Advisory recommendations and optional durable local action intents. Synthetic data; no external business execution.</p></div>
+          <div class="glance-item"><span>Repository &amp; quality evidence</span><p>Public implementation, offline test coverage, four demo scenarios, and a 30-case synthetic evaluation harness. Model quality requires separate review.</p></div>
+        </div>
+      </section>
+
+      <div class="page-actions">
+        <a class="button primary" href="../#projects">Back to Projects</a>
+        <a class="button external" href="https://github.com/kmsspb/Supply-Chain-Exception-Resolution-Agent" target="_blank" rel="noopener noreferrer">View Source on GitHub</a>
+      </div>
+    </header>
+
+    <div class="case-layout wrap">
+      <aside class="case-toc" aria-label="Case study sections">
+        <p>On this page</p>
+        <ol>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#problem">Problem</a></li>
+          <li><a href="#role">My role</a></li>
+          <li><a href="#scope">Vision &amp; scope</a></li>
+          <li><a href="#architecture">Architecture</a></li>
+          <li><a href="#decisions">Decisions</a></li>
+          <li><a href="#iterations">Iterations</a></li>
+          <li><a href="#validation">Validation</a></li>
+          <li><a href="#outcome">Outcome &amp; limits</a></li>
+          <li><a href="#lessons">Lessons</a></li>
+          <li><a href="#next">Next</a></li>
+        </ol>
+      </aside>
+
+      <article class="case-content">
+        <section id="overview" aria-labelledby="overview-title">
+          <span class="section-number">01 · Project overview</span>
+          <h2 id="overview-title">Applying enterprise automation discipline to AI reasoning</h2>
+          <p>This independent demonstrator explores how an established automation workflow can handle supply-chain exceptions that require interpretation. The service gathers synthetic business evidence, produces a structured recommendation through rules or Azure OpenAI, validates its references, and records how the result was obtained.</p>
+          <p>My motivation was to connect enterprise automation experience with AI-enabled solution design. A delayed shipment creates a useful architectural problem: reliable record retrieval, uncertain explanations, and consequential actions need different controls. The intended business value is clearer investigation and review; the project does not establish measured operational savings.</p>
+          <p class="note">Evidence baseline: <a href="https://github.com/kmsspb/Supply-Chain-Exception-Resolution-Agent/tree/6e97df9bf756aa7633df2ffbbd0a47013496fbf5" target="_blank" rel="noopener noreferrer">public revision 6e97df9</a>. The reviewed application reports version 0.4.0. This case study describes that implementation, including its guided business demo, and separates it from the future enterprise target.</p>
+          <div class="disclosure">
+            <h3>AI implementation disclosure</h3>
+            <p>I owned the problem framing, architectural direction, requirements, integration design, and validation priorities. AI coding agents generated and modified the implementation under my direction.</p>
+          </div>
+        </section>
+
+        <section id="problem" aria-labelledby="problem-title">
+          <span class="section-number">02 · The problem / motivation</span>
+          <h2 id="problem-title">An exception is often an investigation across systems</h2>
+          <p>An ERP order can show the requested delivery date while a logistics record shows a customs hold and a carrier note identifies a missing commercial invoice. Elsewhere, tracking and carrier notes may conflict, or a required shipment record may be unavailable. An operations specialist must reconcile these sources before deciding what to do.</p>
+          <p>Conventional rules work well when status and response are understood. They become brittle when notes contain negation, incomplete explanations, or contradictory updates. AI reasoning may help interpret those cases, but it can also misread evidence or suggest an inappropriate action. Neither a confident answer nor a valid citation is sufficient authority to change a business system.</p>
+          <p>The architectural response is hybrid: keep evidence collection, validation, routing, and action boundaries deterministic; introduce replaceable reasoning at the point where interpretation may add value. Give a reviewer the recommendation, its evidence, and its limitations before any future authorized execution.</p>
+        </section>
+
+        <section id="role" aria-labelledby="role-title">
+          <span class="section-number">03 · My role</span>
+          <h2 id="role-title">Framing the process and its boundaries</h2>
+          <p>I defined the business question, the synthetic scenarios, the solution boundaries, and the responsibilities of orchestration, connectors, reasoning, and validation. I directed integration choices and the progression from a local baseline toward structured Azure reasoning, repeatable evaluation, and an enterprise-style tool layer.</p>
+          <p>My focus was making architectural choices reviewable: which evidence must exist, when rules are sufficient, how failures remain visible, and why a proposed action needs a separate authorization path. Implementation direction and validation are part of that ownership; they do not establish production readiness or independently measured model quality.</p>
+        </section>
+
+        <section id="scope" aria-labelledby="scope-title">
+          <span class="section-number">04 · Product vision and scope</span>
+          <h2 id="scope-title">A recommendation service with a deliberate stopping point</h2>
+          <p>The current service accepts an existing synthetic exception identifier. It retrieves linked evidence and returns a recommendation with a run ID, provider, citations, risk, and typed action proposal. The guided demo presents the evidence and trace, and can submit a supported document-request proposal for local recording.</p>
+          <div class="scope-grid">
+            <div class="scope-item"><h3>Implemented today</h3><p>Fixture or HTTP read adapters, deterministic context collection, rule-based or Azure reasoning, output validation, process-local tracing, read-only MCP tools, and idempotent SQLite action-intent recording.</p></div>
+            <div class="scope-item"><h3>Future enterprise boundary</h3><p>Authenticated identities, enforced human approval, authorized external dispatch, immutable audit storage, production deployment, and operational monitoring. These controls are not delivered by an approval flag in a recommendation.</p></div>
+          </div>
+          <p class="note">The demonstrator sends no supplier message, modifies no ERP record, and does not mark an exception resolved. Its HTTP adapters implement enterprise-style contracts; they are not evidence of a real ERP deployment.</p>
+        </section>
+
+        <section id="architecture" aria-labelledby="architecture-title">
+          <span class="section-number">05 · Architecture</span>
+          <h2 id="architecture-title">Collect evidence predictably; keep reasoning replaceable</h2>
+          <p>FastAPI provides the REST interface. The orchestrator loads the exception, reads its order, shipment status, and carrier note through a shared typed service, then checks record relationships. Canonical source records become application-owned evidence with stable references. Both reasoners receive this same context contract.</p>
+
+          <figure class="architecture-diagram supply-chain-diagram" aria-labelledby="supply-chain-diagram-caption">
+            <div class="supply-chain-system">
+              <ol class="supply-chain-flow" aria-label="Implemented evidence and recommendation flow">
+                <li><div class="diagram-node stack"><strong>Synthetic ERP / logistics data</strong><span>Orders, shipments, and carrier notes in local JSON fixtures</span></div><span class="supply-chain-arrow" aria-hidden="true">↓</span></li>
+                <li><div class="diagram-node stack emphasis"><strong>Read connectors &amp; evidence collection</strong><span>Shared typed service · fixture or HTTP adapters</span></div><span class="supply-chain-arrow" aria-hidden="true">↓</span></li>
+                <li><div class="diagram-node stack"><strong>Deterministic orchestration</strong><span>Check relationships · build context · select the reasoning route</span></div><span class="supply-chain-arrow" aria-hidden="true">↓</span></li>
+                <li><div class="diagram-node stack emphasis"><strong>Rule-based or Azure OpenAI reasoning</strong><span>Same evidence contract · advisory analysis</span></div><span class="supply-chain-arrow" aria-hidden="true">↓</span></li>
+                <li><div class="diagram-node stack"><strong>Structured recommendation &amp; evidence validation</strong><span>Validate output, proposal constraints, and cited reference membership</span></div><span class="supply-chain-arrow" aria-hidden="true">↓</span></li>
+                <li><div class="diagram-node stack"><strong>Run trace &amp; optional action intent</strong><span>Process-local trace across the run; a separate request can record a durable SQLite intent</span></div></li>
+              </ol>
+              <aside class="supply-chain-mcp" aria-labelledby="mcp-interface-title">
+                <p class="eyebrow">Separate read interface</p>
+                <h3 id="mcp-interface-title">MCP access</h3>
+                <p>MCP clients read through the same typed service as evidence collection.</p>
+                <p>Three read tools, over stdio or loopback HTTP. The Azure reasoner does not call MCP.</p>
+                <p class="supply-chain-boundary-label">Read-only tool annotations describe intent; they do not enforce authorization.</p>
+              </aside>
+              <div class="supply-chain-future">
+                <h3>Future · authorization &amp; execution boundary</h3>
+                <p>Authenticated human approval → authorized external execution</p>
+                <p>Identity, approval enforcement, external dispatch, durable audit, and monitoring are roadmap work. A recorded intent is neither approval nor delivery.</p>
+              </div>
+            </div>
+            <figcaption id="supply-chain-diagram-caption">Implemented recommendation flow, a separate MCP read interface, and the future authority boundary. HTTP mode reads configured upstream APIs instead of local fixtures. Tracing spans the workflow; intent recording is optional and separate from analysis.</figcaption>
+          </figure>
+
+          <p>The Azure provider uses the OpenAI Python SDK Responses API with structured parsing. It returns a category, explanation, proposed next action, and evidence references. Local validation checks the output and reconstructs cited facts from the supplied catalogue. This architecture has no model-driven tool-calling loop.</p>
+          <p>Run tracing captures evidence snapshots, connector events, provider and prompt metadata, validation outcomes, and success or failure. The trace is in memory. The optional document-request endpoint has a different persistence boundary: it validates linked records and stores a local SQLite intent with status <code>recorded</code>.</p>
+          <p>Source detail: <a href="https://github.com/kmsspb/Supply-Chain-Exception-Resolution-Agent/blob/6e97df9bf756aa7633df2ffbbd0a47013496fbf5/docs/ARCHITECTURE.md" target="_blank" rel="noopener noreferrer">architecture and request flow</a>, <a href="https://github.com/kmsspb/Supply-Chain-Exception-Resolution-Agent/blob/6e97df9bf756aa7633df2ffbbd0a47013496fbf5/docs/INTEGRATIONS.md" target="_blank" rel="noopener noreferrer">integration contracts</a>, and <a href="https://github.com/kmsspb/Supply-Chain-Exception-Resolution-Agent/blob/6e97df9bf756aa7633df2ffbbd0a47013496fbf5/app/service.py" target="_blank" rel="noopener noreferrer">orchestration implementation</a>.</p>
+        </section>
+
+        <section id="decisions" aria-labelledby="decisions-title">
+          <span class="section-number">06 · Key architectural decisions</span>
+          <h2 id="decisions-title">Separate interpretation, reliability, and authority</h2>
+          <p>The important choices concern where uncertainty is acceptable and where deterministic behavior is required.</p>
+          <div class="decision-list">
+            <article class="decision-card">
+              <header class="decision-header"><span class="decision-index">DECISION 01</span><h3>Retain deterministic orchestration</h3></header>
+              <div class="decision-body">
+                <div class="decision-field"><h4>Problem</h4><p>An ambiguous carrier note should not make evidence collection unpredictable.</p></div>
+                <div class="decision-field"><h4>Decision</h4><p>Collect and validate required records before reasoning. Route the known weather demo explicitly to rules.</p></div>
+                <div class="decision-field"><h4>Rationale</h4><p>Stable steps make failures explainable and avoid a model call for a known operational pattern.</p></div>
+                <div class="decision-field"><h4>Tradeoff</h4><p>The workflow cannot autonomously discover new sources. The weather route is an explicit scenario rule, not a general intelligent router.</p></div>
+                <div class="decision-field"><h4>Learning</h4><p>Use AI where interpretation may help; preserve predictable mechanics around it.</p></div>
+              </div>
+            </article>
+            <article class="decision-card">
+              <header class="decision-header"><span class="decision-index">DECISION 02</span><h3>Make reasoning replaceable and comparable</h3></header>
+              <div class="decision-body">
+                <div class="decision-field"><h4>Problem</h4><p>A model integration alone does not show improvement over conventional automation.</p></div>
+                <div class="decision-field"><h4>Decision</h4><p>Keep a local rule-based baseline and an Azure provider behind the same context/result contract.</p></div>
+                <div class="decision-field"><h4>Rationale</h4><p>Identical evidence snapshots allow comparisons and keep orchestration independent of provider details.</p></div>
+                <div class="decision-field"><h4>Tradeoff</h4><p>The baseline preserves known weaknesses around negation and conflicting notes. Azure introduces service dependencies and needs separate quality evaluation.</p></div>
+                <div class="decision-field"><h4>Learning</h4><p>Reasoning flexibility is useful only when outputs can be compared honestly. Baseline confidence values are fixed and uncalibrated.</p></div>
+              </div>
+            </article>
+            <article class="decision-card">
+              <header class="decision-header"><span class="decision-index">DECISION 03</span><h3>Share tools without confusing access boundaries</h3></header>
+              <div class="decision-body">
+                <div class="decision-field"><h4>Problem</h4><p>Enterprise API adapters and agent-facing tool protocols serve different consumers.</p></div>
+                <div class="decision-field"><h4>Decision</h4><p>Reuse typed read operations across REST orchestration, action validation, and a standalone MCP server.</p></div>
+                <div class="decision-field"><h4>Rationale</h4><p>Adapters own upstream contracts; MCP exposes those capabilities through a separate client interface.</p></div>
+                <div class="decision-field"><h4>Tradeoff</h4><p>MCP is restricted to stdio or loopback HTTP. HTTP adapters send no enterprise credentials; remote authorization remains future work.</p></div>
+                <div class="decision-field"><h4>Learning</h4><p>A read-only annotation is a descriptive hint. Identity, least privilege, and policy enforcement still need their own design.</p></div>
+              </div>
+            </article>
+            <article class="decision-card">
+              <header class="decision-header"><span class="decision-index">DECISION 04</span><h3>Validate references without overstating truth</h3></header>
+              <div class="decision-body">
+                <div class="decision-field"><h4>Problem</h4><p>Plausible prose can cite nonexistent evidence or misinterpret a real record.</p></div>
+                <div class="decision-field"><h4>Decision</h4><p>Require structured recommendations and nonempty cause/action citations that belong to the collected evidence catalogue.</p></div>
+                <div class="decision-field"><h4>Rationale</h4><p>Application-owned facts and schema/domain checks make outputs inspectable and reject invalid references.</p></div>
+                <div class="decision-field"><h4>Tradeoff</h4><p>Reference validity does not prove that a claim follows from the cited facts. Untrusted notes also remain a prompt-injection concern.</p></div>
+                <div class="decision-field"><h4>Learning</h4><p>Semantic support and action suitability require separate evaluation and human review.</p></div>
+              </div>
+            </article>
+            <article class="decision-card">
+              <header class="decision-header"><span class="decision-index">DECISION 05</span><h3>Record intent before designing external execution</h3></header>
+              <div class="decision-body">
+                <div class="decision-field"><h4>Problem</h4><p>A recommendation to request a document must not silently become permission to contact a supplier.</p></div>
+                <div class="decision-field"><h4>Decision</h4><p>Support a separate document-request endpoint that records an intent locally, with no delivery or approval transition.</p></div>
+                <div class="decision-field"><h4>Rationale</h4><p>This makes the handoff and persistence contract concrete while keeping business effects outside the demonstrator.</p></div>
+                <div class="decision-field"><h4>Tradeoff</h4><p>Approval flags remain advisory. Recording checks linked records but is not an authenticated approval or authorization decision.</p></div>
+                <div class="decision-field"><h4>Learning</h4><p>External action requires explicit, authenticated authority enforced by the execution path.</p></div>
+              </div>
+            </article>
+            <article class="decision-card">
+              <header class="decision-header"><span class="decision-index">DECISION 06</span><h3>Make retries and failures explicit</h3></header>
+              <div class="decision-body">
+                <div class="decision-field"><h4>Problem</h4><p>Transient reads and repeated submissions can create inconsistent outcomes or duplicate work.</p></div>
+                <div class="decision-field"><h4>Decision</h4><p>Bound HTTP read retries and timeouts, use per-upstream circuit breakers, and persist idempotency for document-request intents.</p></div>
+                <div class="decision-field"><h4>Rationale</h4><p>Matching key/payload replays return one record across restarts; conflicting payloads return 409. Failed validation inserts nothing.</p></div>
+                <div class="decision-field"><h4>Tradeoff</h4><p>Breakers are process-local. Azure has an explicit timeout, zero SDK retries, and no silent baseline fallback. Local intent uniqueness does not guarantee exactly-once external delivery.</p></div>
+                <div class="decision-field"><h4>Learning</h4><p>Reliability comes from bounded behavior and visible failure, rather than substituting an apparently successful answer.</p></div>
+              </div>
+            </article>
+          </div>
+          <p>Implementation evidence: <a href="https://github.com/kmsspb/Supply-Chain-Exception-Resolution-Agent/blob/6e97df9bf756aa7633df2ffbbd0a47013496fbf5/app/validation.py" target="_blank" rel="noopener noreferrer">recommendation validation</a> and <a href="https://github.com/kmsspb/Supply-Chain-Exception-Resolution-Agent/blob/6e97df9bf756aa7633df2ffbbd0a47013496fbf5/app/actions.py" target="_blank" rel="noopener noreferrer">intent persistence and idempotency</a>.</p>
+        </section>
+
+        <section id="iterations" aria-labelledby="iterations-title">
+          <span class="section-number">07 · Challenges and iterations</span>
+          <h2 id="iterations-title">Evolving the integration without hiding baseline limits</h2>
+          <p>The implementation progresses from a deterministic recommendation baseline to direct Azure reasoning with structured output and trace metadata. A six-fixture comparison workflow makes provider differences inspectable; the later 30-case evaluation harness adds explicit scoring and review coverage without tuning the fixed providers.</p>
+          <p>Typed fixture/HTTP adapters, MCP reads, and durable action intents then make integration and failure boundaries concrete. The guided demo presents four business scenarios and separates current capabilities from a target architecture. Its presentation does not turn the target's approval, RPA execution, or monitoring components into implemented integrations.</p>
+        </section>
+
+        <section id="validation" aria-labelledby="validation-title">
+          <span class="section-number">08 · Validation</span>
+          <h2 id="validation-title">Exercise the workflow and evaluate the recommendation separately</h2>
+          <p>The four synthetic demonstrations show different architectural behaviors:</p>
+          <ul>
+            <li><strong>Missing commercial invoice:</strong> combine order, customs-hold status, and carrier-note evidence using the configured reasoner; a supported document request can be recorded locally.</li>
+            <li><strong>Weather delay:</strong> route the known case explicitly to the deterministic baseline and recommend monitoring. This is an informational proposal, not an executable monitoring action.</li>
+            <li><strong>Conflicting carrier records:</strong> send the contradictory evidence to the configured reasoner. This exposes the need for investigation and comparison; it does not guarantee that the baseline resolves the conflict correctly.</li>
+            <li><strong>Insufficient evidence:</strong> stop when the required shipment record is missing, returning a traced error before reasoning rather than inventing an explanation.</li>
+          </ul>
+          <h3>Engineering checks</h3>
+          <p>The repository's offline tests cover parsing, output/citation rejection, connector retries and circuits, MCP transports, idempotency across restart and concurrency, safe errors, run correlation, and evaluation arithmetic. Azure integration tests use mocked HTTP transport with the real SDK. These checks validate contracts and failure behavior; they do not measure live model quality.</p>
+          <h3>Recommendation-quality evaluation</h3>
+          <p>The versioned dataset contains 30 authored synthetic cases: five each for missing documents, completed documents, weather delays, insufficient information, conflicting sources, and embedded instructions. Six are original seeds and 24 are additional examples. It is a small designed dataset, not a representative production benchmark.</p>
+          <p>The harness automatically calculates category matches, timings, available token usage, and cost estimates when supported usage and sourced pricing are supplied. Action correctness, unsupported claims, and the meaning of escalation require explicit human review tied to saved outputs. Pending judgements remain unavailable with coverage shown; provider failures remain visible.</p>
+          <p class="note">No reviewed public Azure-quality result is established here. Valid citations, passing mocked tests, or a completed baseline run do not demonstrate model improvement. This case study reports no accuracy, cost, latency, or business-impact figures.</p>
+          <p>Review the <a href="https://github.com/kmsspb/Supply-Chain-Exception-Resolution-Agent/blob/6e97df9bf756aa7633df2ffbbd0a47013496fbf5/docs/EVALUATION.md" target="_blank" rel="noopener noreferrer">evaluation methodology</a>, <a href="https://github.com/kmsspb/Supply-Chain-Exception-Resolution-Agent/blob/6e97df9bf756aa7633df2ffbbd0a47013496fbf5/data/evaluation_v1.json" target="_blank" rel="noopener noreferrer">versioned synthetic dataset</a>, and <a href="https://github.com/kmsspb/Supply-Chain-Exception-Resolution-Agent/tree/6e97df9bf756aa7633df2ffbbd0a47013496fbf5/tests" target="_blank" rel="noopener noreferrer">test sources</a>.</p>
+        </section>
+
+        <section id="outcome" aria-labelledby="outcome-title">
+          <span class="section-number">09 · Outcome and limitations</span>
+          <h2 id="outcome-title">A concrete architecture demonstrator with visible limits</h2>
+          <div class="outcome-grid">
+            <div class="outcome-item"><h3>Demonstrator outcome</h3><p>A guided path from synthetic exception evidence to a traceable advisory recommendation, with an optional local document-request intent and repeatable evaluation tooling.</p></div>
+            <div class="outcome-item"><h3>Architecture outcome</h3><p>Distinct contracts for retrieval, reasoning, validation, and recording that can be examined before investing in enterprise identity, approval, and execution infrastructure.</p></div>
+          </div>
+          <p class="note">Traces are process-local, unauthenticated, lost on restart, separate across workers, and not immutable. SQLite intents are durable local records, not tamper-proof audit storage. The application has no authenticated approval endpoint or external executor. Confidence is uncalibrated, and synthetic scenarios do not establish production reliability.</p>
+        </section>
+
+        <section id="lessons" aria-labelledby="lessons-title">
+          <span class="section-number">10 · Lessons learned</span>
+          <h2 id="lessons-title">AI reasoning is one part of a reliable business process</h2>
+          <p>Reliable automation and reasoning solve different problems. Deterministic code makes known steps repeatable; model reasoning may help interpret ambiguous evidence. Business evidence, review, and governance determine whether a recommendation can become a responsible operational decision.</p>
+          <p>The value of an agentic architecture depends on integration quality, meaningful evaluation, and controls around business effects. Building a bounded demonstrator makes those questions tangible before production investment. My architectural responsibility is to connect the business need to those engineering choices and be clear about what remains unproven.</p>
+        </section>
+
+        <section id="next" aria-labelledby="next-title">
+          <span class="section-number">11 · What I would explore next</span>
+          <h2 id="next-title">Make authority and operations enforceable</h2>
+          <p>The next boundary is identity: Entra ID, least privilege, remote MCP authorization, and separation of read access from sensitive writes. Human approval must become an authenticated, enforced policy decision before an external dispatcher can act. A future deterministic execution contract could connect authorized API or RPA workers to that decision.</p>
+          <p>Durable governance storage, operational monitoring, secrets management, deployment configuration, containers, and CI/CD would follow as production engineering work. In parallel, live Azure evaluation and documented semantic review are needed before claiming recommendation-quality gains.</p>
+          <div class="case-next">
+            <h3>Explore more architecture projects</h3>
+            <p>Wordy and BoomArena show complementary work in full-stack engineering, data modeling, real-time systems, and product ownership.</p>
+            <a class="button" href="../#projects">Explore All Projects</a>
+          </div>
+        </section>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner wrap">
+      <p>© 2026 Maksim Kozliakov · Supply Chain Exception Resolution Agent architecture case study</p>
+      <div class="footer-links"><a href="../">Home</a><a href="../#projects">All projects</a></div>
+    </div>
+  </footer>
+</body>
+</html>

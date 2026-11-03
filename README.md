@@ -6,6 +6,7 @@ Live website: [https://kmsspb.github.io/](https://kmsspb.github.io/)
 
 ## Featured projects
 
+- **Supply Chain Exception Resolution Agent** — a synthetic enterprise automation demonstrator and case study in deterministic orchestration, advisory AI reasoning, evidence validation, typed integrations, and controlled action boundaries. Project 03 appears first on the homepage; chronology labels remain stable.
 - **Wordy** — a private family vocabulary-learning application and case study in shared content, learner-specific progress, data modeling, and evolving deployment architecture.
 - **BoomArena** — a public real-time multiplayer browser game and case study in deterministic simulation, server authority, WebSockets, and Cloudflare Durable Objects.
 
@@ -23,6 +24,7 @@ These are independent architecture projects. The case studies distinguish produc
 ## Repository structure
 
 - `site/index.html` — homepage.
+- `site/projects/supply-chain-exception-resolution.html` — Supply Chain Exception Resolution Agent architecture case study.
 - `site/projects/wordy.html` — Wordy architecture case study.
 - `site/projects/boomarena.html` — BoomArena architecture case study.
 - `site/assets/style.css` — shared responsive design system.
@@ -79,8 +81,11 @@ The deployed Open Graph images are 1200 × 630 pixel typographic cards:
 - `site/assets/images/og-home.png`
 - `site/assets/images/og-wordy.png`
 - `site/assets/images/og-boomarena.png`
+- `site/assets/images/og-supply-chain-exception-resolution.png`
 
-The Wordy and BoomArena cards intentionally use typography rather than fabricated product imagery. A reviewed real screenshot can replace the visual treatment later without changing the metadata URLs.
+The project cards intentionally use typography rather than fabricated product imagery. A reviewed real screenshot can replace the visual treatment later without changing the metadata URLs.
+
+The Supply Chain case study is grounded in public project revision `6e97df9bf756aa7633df2ffbbd0a47013496fbf5` (application version `0.4.0`). Its SVG preview source is `site/assets/images/og-supply-chain-exception-resolution.svg`. To reproduce the PNG, serve `site/` locally, open `/assets/images/og-supply-chain-exception-resolution.svg` in Chromium or Edge, set the viewport to 1200 × 630 CSS pixels at device scale 1, and capture the viewport as PNG. The SVG has explicit dimensions and uses the same Segoe UI/Arial font convention as the existing previews; review the result when rendering on a different host.
 
 ## Deployment
 

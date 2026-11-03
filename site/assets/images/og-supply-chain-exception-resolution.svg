@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Supply Chain Exception Resolution Agent architecture case study social preview</title>
+  <desc id="desc">Project 03. Hybrid intelligent automation with evidence, reasoning, and controlled action boundaries.</desc>
+  <rect width="1200" height="630" fill="#102a43"/>
+  <rect x="0" y="0" width="22" height="630" fill="#0b746d"/>
+  <g fill="none" stroke="#35536b" stroke-width="2">
+    <rect x="895" y="74" width="210" height="210" rx="22"/>
+    <rect x="950" y="129" width="210" height="210" rx="22"/>
+  </g>
+  <path d="M82 90h1038M82 540h1038" stroke="#36516b" stroke-width="2"/>
+  <text x="82" y="148" fill="#80c8c1" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="3">ARCHITECTURE CASE STUDY · PROJECT 03</text>
+  <g fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="64" font-weight="750">
+    <text x="82" y="255">Supply Chain Exception</text>
+    <text x="82" y="330">Resolution Agent</text>
+  </g>
+  <text x="82" y="405" fill="#dbe6ef" font-family="Segoe UI, Arial, sans-serif" font-size="33">Hybrid Intelligent Automation</text>
+  <text x="82" y="458" fill="#aebfd0" font-family="Segoe UI, Arial, sans-serif" font-size="24">Evidence · Reasoning · Controlled action boundaries</text>
+  <text x="82" y="582" fill="#80c8c1" font-family="Segoe UI, Arial, sans-serif" font-size="19" font-weight="700">MAKSIM KOZLIAKOV · AI ARCHITECTURE PORTFOLIO</text>
+</svg>
